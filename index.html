@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=0">
+        
+        <link rel="stylesheet" href="css/jquery-app-folders.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+        
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+        <script src="js/data.js"></script>    
+        <script src="js/jquery.app-folders.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+            
+        <script type="text/javascript">            
+         $(function(){
+             var geocoder;
+             var panorama;        
+             geocoder = new google.maps.Geocoder();
+             var panoramaOptions = {
+                 position: new google.maps.LatLng(42.345573,-71.098326),
+                 pov: {
+                          heading: 150,
+                          pitch: 10
+                      }
+              };
+             panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+             
+            for(var i in states)
+            {
+                $('#State').append('<option id="' + states[i] + '">' + states[i] + '</option>');
+            }                 
+            
+            $('.app-folders-container').appFolders({
+                    opacity: .2, 								// Opacity of non-selected items
+                    marginTopAdjust: true, 						// Adjust the margin-top for the folder area based on row selected?
+                    marginTopBase: 0, 							// If margin-top-adjust is "true", the natural margin-top for the area
+                    //marginTopIncrement: 50,	// If margin-top-adjust is "true", the absolute value of the increment of margin-top per row
+                    animationSpeed: 200,						// Time (in ms) for transitions
+                    URLrewrite: true, 							// Use URL rewriting?
+                    URLbase: "//",	// If URL rewrite is enabled, the URL base of the page where used. Example (include double-quotes): "/services/"
+                    internalLinkSelector: ".jaf-internal a"		// a jQuery selector containing links to content within a jQuery App Folder
+                });
+                 
+//                 $('#State').change(function(){
+                     $('#button').click(function(){
+                    var state=$('#State option:selected').val().replace(/ /g, '');//$(this).val().replace(/ /g, '');
+                     debugger
+                     $('#City').html("");
+                     $('#pagetwo span').html("Select a City");
+                        
+                    $("#maincontent").html("");
+                    $('#City').html('<option value="Select" selected>Select a City</option>');
+                         debugger
+                         $('#City').selectedIndex = 0;
+                         
+                    for(i in Cities[state])
+                        {
+                            $('#City').append('<option id="' + Cities[state][i] + '">' + Cities[state][i] + '</option>');
+                        }                    
+                }); 
+             
+                 $('#City').change(function () {
+                        $('#maincontent').html('');
+                        var finalstring='';
+                     debugger
+                     var city=$(this).val().replace(/ /g, '');
+                        for(i in places[city])
+                        {
+                            var variable=places[city][i];
+                            var string='<div class="jaf-row flex-container jaf-container">'; 
+                            var string2='<div class="folder flex-item" id="'+variable.id+'">'+
+                            '<img src="'+variable.image+'">'+
+                            '<figcaption style="text-align:center">'+variable.name+'</figcaption></div>';                        
+                            if  (i%2===0)
+                            {
+                                finalstring=finalstring+string+string2;
+                            }
+                            else
+                            {
+                                finalstring=finalstring+string2+'</div>';
+                            }
+                        }
+
+                        for(i in places[city])
+                            {
+                                var variable=places[city][i];     
+                                var place=variable.name+", "+city;
+                                    var string3='<div class="folderContent '+variable.id+'">'+
+                                    '<div class="jaf-container ui-grid-a">'+ 
+                                        '<div class="ui-block-a">'+
+                                        '<ul>'+
+                                          '<li><a href="#container" data-place="'+place+'" data-transition="slide">Street View</a></li>'+
+                                          '<li><a href="#">Images</a></li>'+
+                                          '<li><a href="#">Location</a></li>'+
+                                        '</ul></div>'+
+                                        '<div class="ui-block-b">'+
+                                        '<ul>'+
+                                          '<li><a href="#">Direction</a></li>'+
+                                          '<li><a href="#">Reviews</a></li>'+
+                                          '<li><a href="#">History</a></li>'+
+                                        '</ul></div></div></div>';
+                                finalstring=finalstring+string3;
+                            }
+                        $("#maincontent").append(finalstring);
+                        $(".folderContent").hide();
+                     
+                             $('ul li a').click(function(){                                 
+                                 var address=$(this).attr("data-place");
+                                 debugger
+                                 $.mobile.loading( "show", {
+                                            text: "Loading",
+                                            textVisible: true,
+                                            theme: "a",
+                                            textonly: false,
+                                            html: ""
+                                    });
+                                 geocoder.geocode( { 'address': address}, function(results, status) {
+                                    debugger
+                                    if (status == google.maps.GeocoderStatus.OK) {    
+                                        panoramaOptions.position=results[0].geometry.location;
+                                        panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+//                                        panorama.setPosition(results[0].geometry.location);
+                                    } else {
+                                      alert('Geocode was not successful for the following reason: ' + status);
+                                    }
+                                  });
+                                 $.mobile.loading( "hide" );
+                            });
+                    });
+            });
+                
+            </script>
+        
+        <style>
+            .flex-container {
+                  padding: 0;
+                  margin: 0;
+                  list-style: none;                  
+                  display: -webkit-box;
+                  display: -moz-box;
+                  display: -ms-flexbox;
+                  display: -webkit-flex;
+                  display: flex;                  
+                  -webkit-flex-flow: row wrap;
+                  justify-content: space-around;
+                }
+                
+                .flex-item {
+                  width: 120px;
+                  height: 165px;
+                  text-align: center;
+                  color:cornflowerblue;
+                }
+            
+            img{
+                  width: inherit;
+                  height: 130px;
+            }
+            .active-tool::after{
+            content:'';
+            width: 0;
+            height: 0;
+            top: -20px;
+            position: relative;
+            border-bottom: 15px solid lightgray;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+                
+        }
+            #container{
+                height: 90%
+            }
+        </style>
+    </head>
+<body>
+    <div data-role="page" id="pageone">
+        <div data-role="header" data-position="fixed">
+            <h1>Welcome To My Homepage</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <form>    
+            <fieldset class="ui-field-contain">
+                <label for="state">Select the State</label>
+                <select id="State">
+                    <option id="select">Select</option>
+                </select>
+            </fieldset>
+            <a href="#pagetwo" class="ui-btn" id="button">Button</a>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h1>Footer Text</h1>
+        </div>
+    </div> 
+
+<div data-role="page" id="pagetwo">    
+        <div> 
+
+            <select name="Place" id="City">                
+            </select>
+                
+        </div>
+    
+    <div data-role="main" class="ui-content">
+        
+        <div class="app-folders-container" id="maincontent">
+        </div>
+    </div>
+    
+    <div data-role="footer" data-position="fixed">
+        <a href="#pageone" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>        
+    </div>
+</div> 
+
+<div data-role="page" id="container">    
+    <div data-role="main" class="ui-content" id="pano" style="height:95%">
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left" data-transition="slide"                data-direction="reverse">Back</a>
+    </div>
+</div> 
+   
+</body>
+     
+</html>
