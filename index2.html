@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, height=device-height,">
+        
+        <link rel="stylesheet" href="css/jquery-app-folders.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+        <link rel="stylesheet" href="css/swipebox.min.css" />
+        
+        <script src="js/jquery-2.1.0.min.js"></script>
+        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+        <script src="js/jquery.swipebox.min.js"></script>
+
+        <!--<script src="js/data.js"></script>    
+        <script src="js/jquery.app-folders.js"></script>-->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+            <title>Tour App</title>
+        <script type="text/javascript">            
+            $(function () {
+                $('.swipebox').swipebox();
+             var panoramaOptions = {
+                 pano: 'rEQIKH3RXo4AAAGusnEkNQ',
+                 pov: {
+                     heading: 150,
+                     pitch: 10
+                 }
+             };
+             
+             var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+             //geocoder = new google.maps.Geocoder();
+             
+             //panorama = new google.maps.StreetViewPanorama(document.getElementById("pano"));
+             $('.ui-grid-a a').click(function () {
+                 debugger
+                 if ($(this).attr('data-place') === 'TajMahal') {
+                     sessionStorage.panoid = 'rEQIKH3RXo4AAAGusnEkNQ';
+                     //$('#VirtualTour').attr('data-panoid', 'rEQIKH3RXo4AAAGusnEkNQ');
+                 } else if ($(this).attr('data-place') === 'LotusTemple') {
+                     sessionStorage.panoid = 'WdBZGlAP9jwAAAGu41fwjQ';
+                     //$('#VirtualTour').attr('data-panoid', 'WdBZGlAP9jwAAAGu41fwjQ');
+                 }
+                 $('#menu').show();
+                 $('#pano').hide();
+             });
+
+             $('#VirtualTour').click(function () {
+                 debugger
+                 panoramaOptions.pano = sessionStorage.panoid;
+                //panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+                 panorama.setPano(sessionStorage.panoid);
+                $('#menu').hide();
+                $('#pano').show();
+                panorama.setVisible(true);
+                //panorama.getStatus()
+                 //google.maps.StreetViewStatus
+                
+             });
+             
+//            for(var i in states)
+//            {
+//                $('#State').append('<option id="' + states[i] + '">' + states[i] + '</option>');
+//            }                 
+            
+//            $('.app-folders-container').appFolders({
+//                    opacity: .2, 								// Opacity of non-selected items
+//                    marginTopAdjust: true, 						// Adjust the margin-top for the folder area based on row selected?
+//                    marginTopBase: 0, 							// If margin-top-adjust is "true", the natural margin-top for the area
+//                    //marginTopIncrement: 50,	// If margin-top-adjust is "true", the absolute value of the increment of margin-top per row
+//                    animationSpeed: 200,						// Time (in ms) for transitions
+//                    URLrewrite: true, 							// Use URL rewriting?
+//                    URLbase: "//",	// If URL rewrite is enabled, the URL base of the page where used. Example (include double-quotes): "/services/"
+//                    internalLinkSelector: ".jaf-internal a"		// a jQuery selector containing links to content within a jQuery App Folder
+//                });
+                 
+////                 $('#State').change(function(){
+//                     $('#button').click(function(){
+//                    var state=$('#State option:selected').val().replace(/ /g, '');//$(this).val().replace(/ /g, '');
+//                     debugger
+//                     $('#City').html("");
+//                     $('#pagetwo span').html("Select a City");
+                        
+//                    $("#maincontent").html("");
+//                    $('#City').html('<option value="Select" selected>Select a City</option>');
+//                         debugger
+//                         $('#City').selectedIndex = 0;
+                         
+//                    for(i in Cities[state])
+//                        {
+//                            $('#City').append('<option id="' + Cities[state][i] + '">' + Cities[state][i] + '</option>');
+//                        }                    
+//                }); 
+             
+//                 $('#City').change(function () {
+//                        $('#maincontent').html('');
+//                        var finalstring='';
+//                     debugger
+//                     var city=$(this).val().replace(/ /g, '');
+//                        for(i in places[city])
+//                        {
+//                            var variable=places[city][i];
+//                            var string='<div class="jaf-row flex-container jaf-container">'; 
+//                            var string2='<div class="folder flex-item" id="'+variable.id+'">'+
+//                            '<img src="'+variable.image+'">'+
+//                            '<figcaption style="text-align:center">'+variable.name+'</figcaption></div>';                        
+//                            if  (i%2===0)
+//                            {
+//                                finalstring=finalstring+string+string2;
+//                            }
+//                            else
+//                            {
+//                                finalstring=finalstring+string2+'</div>';
+//                            }
+//                        }
+
+//                        for(i in places[city])
+//                            {
+//                                var variable=places[city][i];     
+//                                var place=variable.name+", "+city;
+//                                    var string3='<div class="folderContent '+variable.id+'">'+
+//                                    '<div class="jaf-container ui-grid-a">'+ 
+//                                        '<div class="ui-block-a">'+
+//                                        '<ul>'+
+//                                          '<li><a href="#container" data-place="'+place+'" data-transition="slide">Street View</a></li>'+
+//                                          '<li><a href="#">Images</a></li>'+
+//                                          '<li><a href="#">Add to Tour Book</a></li>'+
+//                                        '</ul></div>'+
+//                                        '<div class="ui-block-b">'+
+//                                        '<ul>'+
+//                                          '<li><a href="#">Direction</a></li>'+
+//                                          '<li><a href="#">Reviews</a></li>'+
+//                                          '<li><a href="#">History</a></li>'+
+//                                        '</ul></div></div></div>';
+//                                finalstring=finalstring+string3;
+//                            }
+//                        $("#maincontent").append(finalstring);
+//                        $(".folderContent").hide();
+                     
+//                             $('ul li a').click(function(){                                 
+//                                 var address=$(this).attr("data-place");
+//                                 debugger
+//                                 $.mobile.loading( "show", {
+//                                            text: "Loading",
+//                                            textVisible: true,
+//                                            theme: "a",
+//                                            textonly: false,
+//                                            html: ""
+//                                    });
+//                                 geocoder.geocode( { 'address': address}, function(results, status) {
+//                                    debugger
+//                                    if (status == google.maps.GeocoderStatus.OK) {    
+//                                        panoramaOptions.position=results[0].geometry.location;
+//                                        panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+////                                        panorama.setPosition(results[0].geometry.location);
+//                                    } else {
+//                                      alert('Geocode was not successful for the following reason: ' + status);
+//                                    }
+//                                  });
+//                                 $.mobile.loading( "hide" );
+//                            });
+//                    });
+            });
+                
+            </script>
+        
+        <!--<style>
+            .flex-container {
+                  padding: 0;
+                  margin: 0;
+                  list-style: none;                  
+                  display: -webkit-box;
+                  display: -moz-box;
+                  display: -ms-flexbox;
+                  display: -webkit-flex;
+                  display: flex;                  
+                  -webkit-flex-flow: row wrap;
+                  justify-content: space-around;
+                }
+                
+                .flex-item {
+                  width: 120px;
+                  height: 165px;
+                  text-align: center;
+                  color:cornflowerblue;
+                }
+            
+            img{
+                  width: inherit;
+                  height: 130px;
+            }
+            .active-tool::after{
+            content:'';
+            width: 0;
+            height: 0;
+            top: -20px;
+            position: relative;
+            border-bottom: 15px solid lightgray;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+                
+        }
+            #container{
+                height: 90%
+            }
+        </style>-->
+        <style>
+            .box {
+                list-style-type: none;
+                float: left;
+                margin:10px;
+                width: 30%;
+            }
+        </style>
+    </head>
+<body>
+    <!-- <div data-role="page" id="pageone">
+        <div data-role="header" data-position="fixed">
+            <h1>Welcome To My Homepage</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <form>    
+            <fieldset class="ui-field-contain">
+                <label for="state">Select the State</label>
+                <select id="State">
+                    <option id="select">Select</option>
+                </select>
+            </fieldset>
+            <a href="#pagetwo" class="ui-btn" id="button">Button</a>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h1>Footer Text</h1>
+        </div>
+    </div>  -->
+
+<div data-role="page" id="pagetwo">    
+        <div>
+            <!-- <select name="Place" id="City">                
+            </select> -->
+            <label style="text-align:center;font-weight:bold;font-size:2em">New Delhi</label>
+        </div>
+    <div data-role="main" class="ui-content">
+        <!-- <div class="app-folders-container" id="maincontent">
+        </div>-->
+        <div class="ui-grid-a">
+            <div class="ui-block-a" style="text-align:center;padding: 10px;">
+                <a href="#pagethree" data-place="TajMahal"  >                    <!-- style="background:url('img/TajMahal.jpg') no-repeat; height:116px;width:178px"-->
+                <img src="img/TajMahal.jpg" class="ui-corner-all ui-shadow" style="width:100%;height:100%" /> <!-- class="ui-btn ui-corner-all ui-shadow"-->
+                   <figcaption style="text-align:center">Taj Mahal</figcaption>
+                </a>
+            </div>
+            <div class="ui-block-b" style="text-align:center;padding: 10px;">
+                <!--<a href="#pagethree" data-place="LotusTemple" class="ui-btn ui-corner-all ui-shadow" style="background:url('img/LotusTemple.jpg') no-repeat; height:116px;width:178px"></a>-->
+                <a href="#pagethree" data-place="LotusTemple"  >                    <!-- style="background:url('img/TajMahal.jpg') no-repeat; height:116px;width:178px"-->
+                <img src="img/LotusTemple.jpg" class="ui-corner-all ui-shadow" style="width:100%;height:100%" /> <!-- class="ui-btn ui-corner-all ui-shadow"-->
+                   <figcaption style="text-align:center">Lotus Temple</figcaption>
+                </a>
+            </div>
+        </div>
+    </div>    
+    <div data-role="footer" data-position="fixed">
+        <a href="#pageone" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>        
+    </div>
+</div> 
+
+<div data-role="page" id="pagethree">
+        <div data-role="main" class="ui-content" style="min-height:inherit">
+            <div id="menu">
+            <ul data-role="listview">
+                <li><a href="#container" data-panoid="" id="VirtualTour">Virtual Tour</a></li>
+                <li><a href="#imageGallery">Image Gallery</a></li>
+                <li><a href="#">General Information</a></li>
+                <li><a href="#">Directions</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">Add this place</a></li>
+            </ul>
+                 </div>
+           <div id="pano" style="min-height:inherit;display:none">
+
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
+        </div>
+    </div>
+
+<div data-role="page" id="imageGallery">    
+    <div data-role="main" class="ui-content">
+        <ul style="height:100%;width:100%">
+            <li class="box">
+                <a href="img/tajmahal1.jpg" class="swipebox" title="Taj Mahal 1">
+                <img src="img/tajmahal1.jpg" style="height: 100%;width: 100%;" />
+                    </a></li>
+            <li class="box" style="width: 50%;">
+                <a href="img/tajmahal2.jpg" class="swipebox" title="Taj Mahal 2">
+                <img src="img/tajmahal2.jpg" style="height: 100%;width: 100%;" />
+                    </a>
+            </li>
+            <li class="box">
+                <a href="img/tajmahal3.jpg" class="swipebox" title="Taj Mahal 3">
+                <img src="img/tajmahal3.jpg" style="height: 100%;width: 100%;" />
+                    </a>
+            </li>
+            <li class="box">
+                <a href="img/tajmahal4.jpg" class="swipebox" title="Taj Mahal 4">
+                <img src="img/tajmahal4.jpg" style="height: 100%;width: 100%;" />
+                    </a>
+            </li>
+        </ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left" data-transition="slide" data-direction="reverse">Back</a>
+    </div>
+</div> 
+   
+</body>
+     
+</html>
