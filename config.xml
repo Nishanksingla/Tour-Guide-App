@@ -53,10 +53,10 @@
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
     
-    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0">
+    <!-- <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0">
         <param name="APP_ID" value="..." />
         <param name="APP_NAME" value="..." />
-    </gap:plugin>
+    </gap:plugin> -->
 
     <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 
