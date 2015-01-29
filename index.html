@@ -18,6 +18,10 @@
             $(function () {
               $('.swipebox').swipebox();
 
+              var directionsDisplay;
+              var directionsService = new google.maps.DirectionsService();
+              var map;
+
               var panoramaOptions = {
                   pano: 'rEQIKH3RXo4AAAGusnEkNQ',
                   pov: {
@@ -32,8 +36,10 @@
                  debugger
                  if ($(this).attr('data-place') === 'TajMahal') {
                      sessionStorage.panoid = 'rEQIKH3RXo4AAAGusnEkNQ';
+                     sessionStorage.place='Taj Mahal, Agra India';
                  } else if ($(this).attr('data-place') === 'LotusTemple') {
                      sessionStorage.panoid = 'WdBZGlAP9jwAAAGu41fwjQ';
+                     sessionStorage.place='Lotus Temple, New Delhi India';
                  }
                  $('#menu').show();
                  $('#pano').hide();
@@ -45,9 +51,54 @@
                  panorama.setPano(sessionStorage.panoid);
                 $('#menu').hide();
                 $('#pano').show();
-                panorama.setVisible(true);
+                panorama.setVisible(true);                
+                });
+             $(document).on("pageshow","#Directions",function(){ // When entering Directions page
+                console.log("Directions page shown");
+                debugger
+                navigator.geolocation.getCurrentPosition(onSuccess,onError,{enableHighAccuracy: true });
+
+                var onSuccess = function(position) {
+                  debugger
+                  console.log('latitude');
+                  console.log(position.coords.latitude);
+                  console.log('longitude');
+                  console.log(position.coords.longitude);
+                  directionsDisplay = new google.maps.DirectionsRenderer();
+                  var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                  console.log('startPosition');
+                  console.log(startPosition);
+                  var mapOptions = {
+                    zoom:7,
+                    center: startPosition
+                  }
+                  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                  directionsDisplay.setMap(map);
+
+                  var request = {
+                      origin:startPosition,
+                      destination:sessionStorage.place,
+                      travelMode: google.maps.TravelMode.DRIVING
+                  };
+                  directionsService.route(request, function(response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                      directionsDisplay.setDirections(response);
+                    }else{
+                      alert('Error getting route');
+                    }
+                  });
+
+                }
                 
-                });             
+                function onError(error) {
+                  alert('code: '    + error.code    + '\n' +
+                        'message: ' + error.message + '\n');
+                }
+
+              });
+
+
+
             });
                 
             </script>       
@@ -91,7 +142,7 @@
             <ul data-role="listview">
                 <li><a href="#container" data-panoid="" id="VirtualTour">Virtual Tour</a></li>
                 <li><a href="#imageGallery">Image Gallery</a></li>
-                <li><a href="#">General Information</a></li>
+                <li><a href="#Directions">General Information</a></li>
                 <li><a href="#">Directions</a></li>
                 <li><a href="#">Reviews</a></li>
                 <li><a href="#">Add this place</a></li>
@@ -133,6 +184,17 @@
     <div data-role="footer" data-position="fixed">
         <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left" data-transition="slide" data-direction="reverse">Back</a>
     </div>
+
+<div data-role="page" id="Directions">
+  <div data-role="main" class="ui-content" style="min-height:calc(100% - 30px)">
+    <div id="map-canvas"></div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
+  </div>
+
+</div>
+
 </div> 
    
 </body>
