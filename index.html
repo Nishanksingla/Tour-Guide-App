@@ -23,12 +23,7 @@
               var directionsDisplay;
               var directionsService = new google.maps.DirectionsService();
               var map;
-              var mapOptions = {
-                  zoom:7,
-                  center: 'New Delhi, India'
-                }
-              map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-              directionsDisplay.setMap(map);
+              
 
               var panoramaOptions = {
                   pano: 'rEQIKH3RXo4AAAGusnEkNQ',
@@ -54,17 +49,15 @@
               });
 
              $('#VirtualTour').click(function () {
-                 debugger
                  panoramaOptions.pano = sessionStorage.panoid;
                  panorama.setPano(sessionStorage.panoid);
-                $('#menu').hide();
-                $('#pano').show();
-                panorama.setVisible(true);                
-                });
+                  $('#menu').hide();
+                  $('#pano').show();
+                  panorama.setVisible(true);                
+              });
 
-             $(document).on("pageshow","#Directions",function(){ // When entering Directions page
+             $(document).on("pageshow","#Directions",function(){
                 $('#logMessages').html('');
-                console.log("Directions page shown");
                 
                 $('#logMessages').append('<label>Directions page shown</label></br>');
 
@@ -79,17 +72,24 @@
               });
 
               var onSuccess = function(position) {
-                debugger
-                console.log('latitude: '+position.coords.latitude);
-                console.log('longitude:'+position.coords.longitude);
+
                 $('#logMessages').append('<label>latitude: '+position.coords.latitude+'</label></br>');
                 $('#logMessages').append('<label>longitude: '+position.coords.longitude+'</label></br>');
 
                 directionsDisplay = new google.maps.DirectionsRenderer();
+                
                 var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                console.log('startPosition: '+startPosition);
-
+                
                 $('#logMessages').append('<label>startPosition: '+startPosition+'</label></br>');                
+
+                var mapOptions = {
+                  zoom:7,
+                  center: 'New Delhi, India'
+                };
+
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                
+                directionsDisplay.setMap(map);
 
                 var request = {
                     origin:startPosition,
@@ -98,19 +98,19 @@
                 };
 
                 directionsService.route(request, function(response, status) {
-                  if (status == google.maps.DirectionsStatus.OK) {
+                  if (status === google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
                   }else{
                     alert('Error getting route');
                   }
                 });
-
               };
               
               function onLocError(error) {
                 alert('code: '    + error.code    + '\n' +
                       'message: ' + error.message + '\n');
               }
+              
             });
                 
             </script>       
@@ -200,9 +200,7 @@
 
   <div data-role="page" id="Directions">
     <div data-role="main" style="min-height:inherit">
-      <div id="logMessages" style="overflow-x:auto;height: 25vw;border: 1px solid black;">
-
-      </div>
+      <div id="logMessages" style="overflow-x:auto;height: 25vw;border: 1px solid black;"></div>
       <div id="map-canvas" style="height:90vw;margin: 10px;padding: 0px"></div>
     </div>
     <div data-role="footer" data-position="fixed">
