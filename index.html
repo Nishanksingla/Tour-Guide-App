@@ -64,10 +64,12 @@
                   console.log(position.coords.latitude);
                   console.log('longitude');
                   console.log(position.coords.longitude);
+
                   directionsDisplay = new google.maps.DirectionsRenderer();
                   var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                   console.log('startPosition');
                   console.log(startPosition);
+
                   var mapOptions = {
                     zoom:7,
                     center: startPosition
@@ -80,6 +82,7 @@
                       destination:sessionStorage.place,
                       travelMode: google.maps.TravelMode.DRIVING
                   };
+
                   directionsService.route(request, function(response, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                       directionsDisplay.setDirections(response);
@@ -111,10 +114,10 @@
         </style>
     </head>
 <body>
-<div data-role="page" id="pagetwo">    
-        <div>
-            <label style="text-align:center;font-weight:bold;font-size:2em">New Delhi</label>
-        </div>
+  <div data-role="page" id="pagetwo">    
+    <div>
+        <label style="text-align:center;font-weight:bold;font-size:2em">New Delhi</label>
+    </div>
     <div data-role="main" class="ui-content">
         <div class="ui-grid-a">
             <div class="ui-block-a" style="text-align:center;padding: 10px;">
@@ -132,70 +135,68 @@
         </div>
     </div>    
     <div data-role="footer" data-position="fixed">
-        <a href="#pageone" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>        
+        <a href="#pageone" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>      
     </div>
-</div> 
+  </div> 
 
-<div data-role="page" id="pagethree">
-        <div data-role="main" class="ui-content" style="min-height:inherit">
-            <div id="menu">
-            <ul data-role="listview">
-                <li><a href="#container" data-panoid="" id="VirtualTour">Virtual Tour</a></li>
-                <li><a href="#imageGallery">Image Gallery</a></li>
-                <li><a href="#Directions">General Information</a></li>
-                <li><a href="#">Directions</a></li>
-                <li><a href="#">Reviews</a></li>
-                <li><a href="#">Add this place</a></li>
-            </ul>
-                 </div>
-           <div id="pano" style="min-height:inherit;display:none">
+  <div data-role="page" id="pagethree">
+      <div data-role="main" class="ui-content" style="min-height:inherit">
+          <div id="menu">
+          <ul data-role="listview">
+              <li><a href="#container" data-panoid="" id="VirtualTour">Virtual Tour</a></li>
+              <li><a href="#imageGallery">Image Gallery</a></li>
+              <li><a href="#">General Information</a></li>
+              <li><a href="#Directions">Directions</a></li>
+              <li><a href="#">Reviews</a></li>
+              <li><a href="#">Add this place</a></li>
+          </ul>
+               </div>
+         <div id="pano" style="min-height:inherit;display:none">
 
-            </div>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
-        </div>
-    </div>
+          </div>
+      </div>
+      <div data-role="footer" data-position="fixed">
+          <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
+      </div>
+  </div>
 
-<div data-role="page" id="imageGallery">    
-    <div data-role="main" class="ui-content">
-        <ul style="margin:0;padding:0">
-            <li class="box">
-                <a href="img/tajmahal1.jpg" class="swipebox" title="Taj Mahal 1">
-                <img src="img/tajmahal1.jpg" style="width: 100%;" />
-                    </a></li>
-            <li class="box">
-                <a href="img/tajmahal2.jpg" class="swipebox" title="Taj Mahal 2">
-                <img src="img/tajmahal2.jpg" style="width: 100%;" />
-                    </a>
-            </li>
-            <li class="box">
-                <a href="img/tajmahal3.jpg" class="swipebox" title="Taj Mahal 3">
-                <img src="img/tajmahal3.jpg" style="width: 100%;" />
-                    </a>
-            </li>
-            <li class="box">
-                <a href="img/tajmahal4.jpg" class="swipebox" title="Taj Mahal 4">
-                <img src="img/tajmahal4.jpg" style="width: 100%;" />
-                    </a>
-            </li>
-        </ul>
+  <div data-role="page" id="imageGallery">    
+      <div data-role="main" class="ui-content">
+          <ul style="margin:0;padding:0">
+              <li class="box">
+                  <a href="img/tajmahal1.jpg" class="swipebox" title="Taj Mahal 1">
+                  <img src="img/tajmahal1.jpg" style="width: 100%;" />
+                      </a></li>
+              <li class="box">
+                  <a href="img/tajmahal2.jpg" class="swipebox" title="Taj Mahal 2">
+                  <img src="img/tajmahal2.jpg" style="width: 100%;" />
+                      </a>
+              </li>
+              <li class="box">
+                  <a href="img/tajmahal3.jpg" class="swipebox" title="Taj Mahal 3">
+                  <img src="img/tajmahal3.jpg" style="width: 100%;" />
+                      </a>
+              </li>
+              <li class="box">
+                  <a href="img/tajmahal4.jpg" class="swipebox" title="Taj Mahal 4">
+                  <img src="img/tajmahal4.jpg" style="width: 100%;" />
+                      </a>
+              </li>
+          </ul>
+      </div>
+      <div data-role="footer" data-position="fixed">
+          <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left" data-transition="slide" data-direction="reverse">Back</a>
+      </div>
+  </div>
+
+  <div data-role="page" id="Directions">
+    <div data-role="main" class="ui-content" style="min-height:calc(100% - 30px)">
+      <div id="map-canvas"></div>
     </div>
     <div data-role="footer" data-position="fixed">
-        <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left" data-transition="slide" data-direction="reverse">Back</a>
+      <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
     </div>
-
-<div data-role="page" id="Directions">
-  <div data-role="main" class="ui-content" style="min-height:calc(100% - 30px)">
-    <div id="map-canvas"></div>
   </div>
-  <div data-role="footer" data-position="fixed">
-    <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
-  </div>
-
-</div>
-
-</div> 
    
 </body>
      
