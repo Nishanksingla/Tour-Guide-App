@@ -84,7 +84,7 @@
 
                 var mapOptions = {
                   zoom:7,
-                  center: 'New Delhi, India'
+                  center: startPosition
                 };
 
                 map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -110,7 +110,7 @@
                 alert('code: '    + error.code    + '\n' +
                       'message: ' + error.message + '\n');
               }
-              
+
             });
                 
             </script>       
