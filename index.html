@@ -55,7 +55,8 @@
                 });
              $(document).on("pageshow","#Directions",function(){ // When entering Directions page
                 console.log("Directions page shown");
-                debugger
+                
+                $('#logMessages').append('<label>Directions page shown</label></br>');
                 navigator.geolocation.getCurrentPosition(onSuccess,onLocError);
 
                 var onSuccess = function(position) {
@@ -64,11 +65,14 @@
                   console.log(position.coords.latitude);
                   console.log('longitude');
                   console.log(position.coords.longitude);
+                  $('#logMessages').append('<label>latitude'+position.coords.latitude+'</label></br>');
+                  $('#logMessages').append('<label>longitude'+position.coords.longitude+'</label></br>');
 
                   directionsDisplay = new google.maps.DirectionsRenderer();
                   var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                   console.log('startPosition');
                   console.log(startPosition);
+                  $('#logMessages').append('<label>startPosition'+startPosition+'</label></br>');
 
                   var mapOptions = {
                     zoom:7,
@@ -190,8 +194,11 @@
   </div>
 
   <div data-role="page" id="Directions">
-    <div data-role="main" class="ui-content" style="min-height:calc(100% - 30px)">
-      <div id="map-canvas"></div>
+    <div data-role="main" class="ui-content" style="min-height:inherit">
+      <div id="logMessages" style="overflow-x:auto;height: 10vw;border: 1px solid black;">
+
+      </div>
+      <div id="map-canvas" style="height: 40vw;margin: 10px;padding: 0px"></div>
     </div>
     <div data-role="footer" data-position="fixed">
       <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
