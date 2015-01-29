@@ -55,60 +55,61 @@
                 $('#pano').show();
                 panorama.setVisible(true);                
                 });
+
              $(document).on("pageshow","#Directions",function(){ // When entering Directions page
                 $('#logMessages').html('');
                 console.log("Directions page shown");
                 
                 $('#logMessages').append('<label>Directions page shown</label></br>');
-                navigator.geolocation.getCurrentPosition(onSuccess,onLocError);
-
-                var onSuccess = function(position) {
-                  debugger
-                  console.log('latitude');
-                  console.log(position.coords.latitude);
-                  console.log('longitude');
-                  console.log(position.coords.longitude);
-                  $('#logMessages').append('<label>latitude'+position.coords.latitude+'</label></br>');
-                  $('#logMessages').append('<label>longitude'+position.coords.longitude+'</label></br>');
-
-                  directionsDisplay = new google.maps.DirectionsRenderer();
-                  var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                  console.log('startPosition');
-                  console.log(startPosition);
-                  $('#logMessages').append('<label>startPosition'+startPosition+'</label></br>');
-
-                  var mapOptions = {
-                    zoom:7,
-                    center: startPosition
-                  }
-                  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                  directionsDisplay.setMap(map);
-
-                  var request = {
-                      origin:startPosition,
-                      destination:sessionStorage.place,
-                      travelMode: google.maps.TravelMode.DRIVING
-                  };
-
-                  directionsService.route(request, function(response, status) {
-                    if (status == google.maps.DirectionsStatus.OK) {
-                      directionsDisplay.setDirections(response);
-                    }else{
-                      alert('Error getting route');
-                    }
-                  });
-
-                };
-                
-                function onLocError(error) {
-                  alert('code: '    + error.code    + '\n' +
-                        'message: ' + error.message + '\n');
+                if (navigator.geolocation)
+                {
+                  $('#logMessages').append('<label>navigator.geolocation is supported</label></br>');
+                  navigator.geolocation.getCurrentPosition(onSuccess,onLocError,{enableHighAccuracy: true});
+                }else
+                {
+                  $('#logMessages').append('navigator.geolocation not supported</label></br>');
                 }
-
               });
 
+              var onSuccess = function(position) {
+                debugger
+                console.log('latitude: '+position.coords.latitude);
+                console.log('longitude:'+position.coords.longitude);
+                $('#logMessages').append('<label>latitude'+position.coords.latitude+'</label></br>');
+                $('#logMessages').append('<label>longitude'+position.coords.longitude+'</label></br>');
 
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                console.log('startPosition: '+startPosition);
+                $('#logMessages').append('<label>startPosition'+startPosition+'</label></br>');
 
+                var mapOptions = {
+                  zoom:7,
+                  center: startPosition
+                }
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                directionsDisplay.setMap(map);
+
+                var request = {
+                    origin:startPosition,
+                    destination:sessionStorage.place,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+
+                directionsService.route(request, function(response, status) {
+                  if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                  }else{
+                    alert('Error getting route');
+                  }
+                });
+
+              };
+              
+              function onLocError(error) {
+                alert('code: '    + error.code    + '\n' +
+                      'message: ' + error.message + '\n');
+              }
             });
                 
             </script>       
@@ -197,11 +198,11 @@
   </div>
 
   <div data-role="page" id="Directions">
-    <div data-role="main" class="ui-content" style="min-height:inherit">
-      <div id="logMessages" style="overflow-x:auto;height: 20vw;border: 1px solid black;">
+    <div data-role="main" style="min-height:inherit">
+      <!-- <div id="logMessages" style="overflow-x:auto;height: 20%;border: 1px solid black;">
 
-      </div>
-      <div id="map-canvas" style="height: 30vw;margin: 10px;padding: 0px"></div>
+      </div> -->
+      <div id="map-canvas" style="min-height:inherit;margin: 10px;padding: 0px"></div>
     </div>
     <div data-role="footer" data-position="fixed">
       <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left">Back</a>
