@@ -56,7 +56,7 @@
              $(document).on("pageshow","#Directions",function(){ // When entering Directions page
                 console.log("Directions page shown");
                 debugger
-                navigator.geolocation.getCurrentPosition(onSuccess,onError,{enableHighAccuracy: true });
+                navigator.geolocation.getCurrentPosition(onSuccess,onLocError);
 
                 var onSuccess = function(position) {
                   debugger
@@ -91,9 +91,9 @@
                     }
                   });
 
-                }
+                };
                 
-                function onError(error) {
+                function onLocError(error) {
                   alert('code: '    + error.code    + '\n' +
                         'message: ' + error.message + '\n');
                 }
