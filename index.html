@@ -19,23 +19,13 @@
     <title>Tour App</title>
     <script type="text/javascript">
         $(function () {
-            //$(document).on("pageshow", "#main", function () {
-
-            //});
-            //var tallest = 0;
-            //$('.ui-grid-a>div').each(function () {
-            //    var thisHeight = $(this).height();
-            //    if (thisHeight > tallest) {
-            //        tallest = thisHeight;
-            //    }
-            //});
-            //$('.ui-grid-a div').height(tallest - 50);
-
+            
             $('.swipebox').swipebox();
-            //$(window).resize(function () { location.reload(); });
+            
             var directionsDisplay;
             var directionsService = new google.maps.DirectionsService();
             var map;
+            
             var panoramaOptions = {
                 pano: 'rEQIKH3RXo4AAAGusnEkNQ',
                 pov: {
@@ -75,6 +65,11 @@
             });
 
             $(document).on("pageshow", "#Directions", function () {
+                if (directionsDisplay != null) {
+                    $('#map-canvas').html('');
+                    directionsDisplay.setMap(null);
+                    directionsDisplay = null;
+                }
                 $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
                 $('#logMessages').html('');
 
@@ -130,6 +125,9 @@
     </script>
 
     <style>
+        #map-canvas {
+            background: transparent url(images/ajax-loading.gif) no-repeat center center;
+        }
         .box {
             list-style-type: none;
             float: left;
@@ -223,25 +221,25 @@
             <div class="ui-grid-a">
                 <div class="ui-block-a">
                     <a href="#Options" data-place="LotusTemple">
-                        <img src="img/LotusTemple.jpg" class="ui-corner-all ui-shadow" />
+                        <img src="images/LotusTemple.jpg" class="ui-corner-all ui-shadow" />
                         <figcaption style="text-align: center">Lotus Temple</figcaption>
                     </a>
                 </div>
                 <div class="ui-block-b">
                     <a href="#Options" data-place="QutubMinar">
-                        <img src="img/QutubMinar.jpg" class="ui-corner-all ui-shadow" />
+                        <img src="images/QutubMinar.jpg" class="ui-corner-all ui-shadow" />
                         <figcaption style="text-align: center">Qutub Minar</figcaption>
                     </a>
                 </div>
                 <div class="ui-block-a">
                     <a href="#Options" data-place="JamaMasjid">
-                        <img src="img/JamaMasjid.jpg" class="ui-corner-all ui-shadow" />
+                        <img src="images/JamaMasjid.jpg" class="ui-corner-all ui-shadow" />
                         <figcaption style="text-align: center">Jama Masjid</figcaption>
                     </a>
                 </div>
                 <div class="ui-block-b">
                     <a href="#Options" data-place="HumayunTomb">
-                        <img src="img/HumayunTomb.jpg" class="ui-corner-all ui-shadow" />
+                        <img src="images/HumayunTomb.jpg" class="ui-corner-all ui-shadow" />
                         <figcaption style="text-align: center">Humayun Tomb</figcaption>
                     </a>
                 </div>
@@ -295,23 +293,23 @@
         <div data-role="main" class="ui-content">
             <ul style="margin: 0; padding: 0">
                 <li class="box">
-                    <a href="img/tajmahal1.jpg" class="swipebox" title="Taj Mahal 1">
-                        <img src="img/tajmahal1.jpg" style="width: 100%;" />
+                    <a href="images/tajmahal1.jpg" class="swipebox" title="Taj Mahal 1">
+                        <img src="images/tajmahal1.jpg" style="width: 100%;" />
                     </a>
                 </li>
                 <li class="box">
-                    <a href="img/tajmahal2.jpg" class="swipebox" title="Taj Mahal 2">
-                        <img src="img/tajmahal2.jpg" style="width: 100%;" />
+                    <a href="images/tajmahal2.jpg" class="swipebox" title="Taj Mahal 2">
+                        <img src="images/tajmahal2.jpg" style="width: 100%;" />
                     </a>
                 </li>
                 <li class="box">
-                    <a href="img/tajmahal3.jpg" class="swipebox" title="Taj Mahal 3">
-                        <img src="img/tajmahal3.jpg" style="width: 100%;" />
+                    <a href="images/tajmahal3.jpg" class="swipebox" title="Taj Mahal 3">
+                        <img src="images/tajmahal3.jpg" style="width: 100%;" />
                     </a>
                 </li>
                 <li class="box">
-                    <a href="img/tajmahal4.jpg" class="swipebox" title="Taj Mahal 4">
-                        <img src="img/tajmahal4.jpg" style="width: 100%;" />
+                    <a href="images/tajmahal4.jpg" class="swipebox" title="Taj Mahal 4">
+                        <img src="images/tajmahal4.jpg" style="width: 100%;" />
                     </a>
                 </li>
             </ul>
