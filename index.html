@@ -9,17 +9,12 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
-   
-    <!--<script src="facebook-js-sdk.js"></script>-->
-   <!-- <script src="cordova.js"></script>-->
-
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/jquery.mobile-1.4.2.min.js"></script>
     <script src="js/jquery.swipebox.min.js"></script>
 
     <title>Tour App</title>
     <script type="text/javascript">
-                
         //(function (d, s, id) {
         //    var js, fjs = d.getElementsByTagName(s)[0];
         //    if (d.getElementById(id)) return;
@@ -28,17 +23,14 @@
         //    fjs.parentNode.insertBefore(js, fjs);
         //}(document, 'script', 'facebook-jssdk'));
 
-        
-
-
         $(function () {
-            
+
             $('.swipebox').swipebox();
-            
+
             var directionsDisplay;
             var directionsService = new google.maps.DirectionsService();
             var map;
-            
+
             var panoramaOptions = {
                 pano: 'rEQIKH3RXo4AAAGusnEkNQ',
                 pov: {
@@ -107,8 +99,8 @@
 
             $("#loginPopup").on({
                 popupbeforeposition: function () {
-                    var h = $(window).height()-150;
-                    var w = $(window).width()-100;
+                    var h = $(window).height() - 150;
+                    var w = $(window).width() - 100;
                     $("#loginPopup").css("height", h);
                     $("#loginPopup").css("width", w);
                 }
@@ -153,8 +145,6 @@
                 $('#logMessages').append('<label>Error getting current position' + error.code + error.message + '</label></br>');
             }
         });
-
-        
 
     </script>
 
@@ -254,19 +244,19 @@
         <div data-role="panel" id="revealPanel" data-display="reveal">
             <div style="width:100%;text-align:center;margin-top:2%" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" data-scope="public_profile,email" onlogin="getUserInfo();"></div>
             <!--<a href="#main" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close panel</a>-->
-        </div> 
-       
-         <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:52px">            
-            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window" style="display:none;margin-left:10px;margin-top: 5px;">Login</a>            
-            <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;top: .6em;display:none"></a> 
-                                
+        </div>
+
+        <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:52px">
+            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window" style="display:none;margin-left:10px;margin-top: 5px;">Login</a>
+            <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;top: .6em;display:none"></a>
+
             <h1 style="font-size:1.2em">New Delhi</h1>
             <div id="user" style="position:absolute;top:0em;right:0em;padding-right:10px">
                 <label id="FBusername" style="float:left;margin-right:5px;margin-top:15px"></label>
                 <img id="FBprofileimage" style="float:left;border-radius: 50%;margin: 5px;height: 42px" />
             </div>
         </div>
-        
+
         <div data-role="main" class="ui-content">
             <div class="ui-grid-a">
                 <div class="ui-block-a">
@@ -295,8 +285,8 @@
                 </div>
             </div>
             <div data-role="popup" id="loginPopup" class="ui-content">
-                <a href="#main" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>   
-                <h2 style="text-align:center">Login With Facebook</h2>             
+                <a href="#main" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <h2 style="text-align:center">Login With Facebook</h2>
                 <div style="width:100%;text-align:center;margin-top:2%" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" data-scope="public_profile,email" onlogin="getUserInfo();"></div>
                 <div id="fb-root"></div>
             </div>
@@ -439,87 +429,90 @@
     <script src="facebook-js-sdk.js"></script>
 
     <script>
-    // <!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory-->
-    if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-    if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-    if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+        // <!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory-->
+        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+        if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+        if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
 
-    FB.Event.subscribe('auth.login', function (response) {
-        alert('auth.login event');
-    });
-
-    FB.Event.subscribe('auth.logout', function (response) {
-        alert('auth.logout event');
-    });
-
-    FB.Event.subscribe('auth.sessionChange', function (response) {
-        alert('auth.sessionChange event');
-    });
-
-    FB.Event.subscribe('auth.statusChange', function (response) {
-        alert('auth.statusChange event');
-    });
-
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '924651857553242',
-            nativeInterface: CDV.FB, 
-            useCachedDialogs: false,
-            cookie: true,
-            xfbml: true,
-            version: 'v2.1'
+        FB.Event.subscribe('auth.login', function (response) {
+            alert('auth.login event');
         });
-        getUserInfo();
-    };
 
-    function getUserInfo() {
-        debugger
-        FB.getLoginStatus(function (response) {
+        FB.Event.subscribe('auth.logout', function (response) {
+            alert('auth.logout event');
+        });
+
+        FB.Event.subscribe('auth.sessionChange', function (response) {
+            alert('auth.sessionChange event');
+        });
+
+        FB.Event.subscribe('auth.statusChange', function (response) {
+            alert('auth.statusChange event');
+        });
+
+        //window.fbAsyncInit = function () {
+        //    FB.init({
+        //        appId: '924651857553242',
+        //        nativeInterface: CDV.FB,
+        //        useCachedDialogs: false,
+        //        cookie: true,
+        //        xfbml: true,
+        //        version: 'v2.1'
+        //    });
+        //    getUserInfo();
+        //};
+
+        function getUserInfo() {
             debugger
-            if (response.status === "connected") {
-                FB.api('/me', function (response) {
-                    debugger
-                    $('#FBusername').val(response.first_name);
-                    $('#FBusername').text(response.first_name);
-                });
-                FB.api('/me/picture', { "type": "large" }, function (response) {
-                    debugger
-                    $('#FBprofileimage').attr('src', response.data.url);
-                });
-                $('a[href="#revealPanel"]').show();
-                $('a[href="#loginPopup"]').hide();
-                $('#user').show();
-                $('#loginPopup').popup("close");
-
-            } else {
-                $('a[href="#loginPopup"]').show();
-                $('a[href="#revealPanel"]').hide();
-                $('#user').hide();
+            FB.getLoginStatus(function (response) {
                 debugger
-                if ($(".ui-page-active").jqmData("panel") === "open") {
+                if (response.status === "connected") {
+                    FB.api('/me', function (response) {
+                        debugger
+                        $('#FBusername').val(response.first_name);
+                        $('#FBusername').text(response.first_name);
+                    });
+                    FB.api('/me/picture', { "type": "large" }, function (response) {
+                        debugger
+                        $('#FBprofileimage').attr('src', response.data.url);
+                    });
+                    $('a[href="#revealPanel"]').show();
+                    $('a[href="#loginPopup"]').hide();
+                    $('#user').show();
+                    $('#loginPopup').popup("close");
+
+                } else {
+                    $('a[href="#loginPopup"]').show();
+                    $('a[href="#revealPanel"]').hide();
+                    $('#user').hide();
                     debugger
-                    $("#revealPanel").panel("close");
-                    window.location.reload();
+                    if ($(".ui-page-active").jqmData("panel") === "open") {
+                        debugger
+                        $("#revealPanel").panel("close");
+                        window.location.reload();
+                    }
+
                 }
+            });
+        }
 
+        document.addEventListener('deviceready', function () {
+            try {
+                alert('Device is ready! Make sure you set your app_id below this alert.');
+                FB.init({
+                    appId: '924651857553242',
+                    nativeInterface: CDV.FB,
+                    useCachedDialogs: false,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.1'
+                });
+                getUserInfo();
+
+            } catch (e) {
+                alert(e);
             }
-        });
-    }
-
-    //document.addEventListener('deviceready', function () {
-    //    try {
-    //        alert('Device is ready! Make sure you set your app_id below this alert.');
-    //        FB.init({ appId: "924651857553242", nativeInterface: CDV.FB, useCachedDialogs: false });
-            
-    //    } catch (e) {
-    //        alert(e);
-    //    }
-    //}, false);
-
-
-        </script>
-
-
-    </body>
-
-    </html>
+        }, false);
+    </script>
+</body>
+</html>
