@@ -247,7 +247,7 @@
         </div>
 
         <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:52px">
-            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window" style="display:none;margin-left:10px;margin-top: 5px;">Login</a>
+            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window" style="margin-left:10px;margin-top: 5px;">Login</a>
             <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;top: .6em;display:none"></a>
 
             <h1 style="font-size:1.2em">New Delhi</h1>
@@ -433,22 +433,6 @@
         if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
         if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
         if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-
-        FB.Event.subscribe('auth.login', function (response) {
-            alert('auth.login event');
-        });
-
-        FB.Event.subscribe('auth.logout', function (response) {
-            alert('auth.logout event');
-        });
-
-        FB.Event.subscribe('auth.sessionChange', function (response) {
-            alert('auth.sessionChange event');
-        });
-
-        FB.Event.subscribe('auth.statusChange', function (response) {
-            alert('auth.statusChange event');
-        });
 
         //window.fbAsyncInit = function () {
         //    FB.init({
