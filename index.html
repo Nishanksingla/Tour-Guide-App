@@ -14,15 +14,7 @@
     <script src="js/jquery.swipebox.min.js"></script>
 
     <title>Tour App</title>
-    <script type="text/javascript">
-        //(function (d, s, id) {
-        //    var js, fjs = d.getElementsByTagName(s)[0];
-        //    if (d.getElementById(id)) return;
-        //    js = d.createElement(s); js.id = id;
-        //    js.src = "//connect.facebook.net/en_US/sdk.js";
-        //    fjs.parentNode.insertBefore(js, fjs);
-        //}(document, 'script', 'facebook-jssdk'));
-
+    <script type="text/javascript">        
         $(function () {
 
             $('.swipebox').swipebox();
@@ -97,8 +89,7 @@
             });
 
 
-            $("#loginPopup").on({
-                popupbeforeposition: function () {
+            $("#loginPopup").on({popupbeforeposition: function () {
                     var h = $(window).height() - 150;
                     var w = $(window).width() - 100;
                     $("#loginPopup").css("height", h);
@@ -181,7 +172,7 @@
         }
 
         /* Smartphones (landscape) ----------- */
-        @media only screen and (min-width : 321px) and (orientation : landscape) {
+        @media only screen and (min-width : 321px) {
 
             .ui-block-a, .ui-block-b {
                 height: 130px;
@@ -189,7 +180,7 @@
         }
 
         /* Smartphones (portrait) ----------- */
-        @media only screen and (max-width : 320px) and (orientation : portrait){
+        @media only screen and (max-width : 320px){
 
             .ui-block-a, .ui-block-b {
                 height: 100px;
@@ -287,8 +278,7 @@
             <div data-role="popup" id="loginPopup" class="ui-content">
                 <a href="#main" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
                 <h2 style="text-align:center">Login With Facebook</h2>
-                <fb:login-button scope="public_profile,email" onlogin="getUserInfo();">
-                </fb:login-button>
+                
                 <div style="width:100%;text-align:center;margin-top:2%" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" data-scope="public_profile,email" onlogin="getUserInfo();"></div>
                 <div id="fb-root"></div>
             </div>
