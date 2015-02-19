@@ -247,7 +247,7 @@
         </div>
 
         <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:52px">
-            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window" style="display:none;margin-left:10px;margin-top: 5px;">Login</a>
+            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window" style="margin-left:10px;margin-top: 5px;">Login</a>
             <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;top: .6em;display:none"></a>
 
             <h1 style="font-size:1.2em">New Delhi</h1>
@@ -485,6 +485,8 @@
                 alert('Device is ready! Make sure you set your app_id below this alert.');
                 FB.init({
                     appId: '924651857553242',
+                    nativeInterface: CDV.FB,
+                    useCachedDialogs: false,
                     cookie: true,
                     xfbml: true,
                     version: 'v2.1'
