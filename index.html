@@ -258,7 +258,7 @@
                 <a href="#main" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
                 <h2 style="text-align:center">Login With Facebook</h2>                
                 <div style="text-align:center;width:100%">
-                    <button class="fbButton" onclick="getUserInfo()"></button>
+                    <button class="fbButton" onclick="fbLogin()"></button>
                 </div>
                 <div id="fb-root"></div>
             </div>
@@ -400,28 +400,37 @@
     <!-- facebook js sdk -->
     <script src="facebook-js-sdk.js"></script>
 
-    <script>       
+    <script>
+
         if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
         if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
         if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-       
-        function getUserInfo() {
+
+        function fbLogin() {
             FB.login(function (response) {
                 if (response.status === 'connected') {
-                    FB.api('/me', function (response) {
-                        $('#FBusername').val(response.first_name);
-                        $('#FBusername').text(response.first_name);
-                    });
-                    FB.api('/me/picture', { "type": "large" }, function (response) {
-                        $('#FBprofileimage').attr('src', response.data.url);
-                    });
-                    $('a[href="#revealPanel"]').show();
-                    $('a[href="#loginPopup"]').hide();
-                    $('#user').show();
-                    $('#loginPopup').popup("close");
+                    getUserInfo();
                 }
-            }, { scope: 'public_profile,email' });            
+            }, { scope: 'public_profile,email' });
         }
+
+        function getUserInfo() {
+                FB.api('/me', function (response) {
+                    $('#FBusername').val(response.first_name);
+                    $('#FBusername').text(response.first_name);
+                });
+                FB.api('/me/picture', { "type": "large" }, function (response) {
+                    $('#FBprofileimage').attr('src', response.data.url);
+                });
+                $('a[href="#revealPanel"]').show();
+                $('a[href="#loginPopup"]').hide();
+                $('#user').show();
+                //$('#loginPopup').popup("close");
+                if ($('#loginPopup').parent().hasClass('ui-popup-active')) {                    
+                    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
+                    $('#loginPopup-screen').addClass('ui-screen-hidden');                    
+                }
+            }
 
         function logout() {
             FB.logout(function (response) {
@@ -441,6 +450,11 @@
                     cookie: true,
                     xfbml: true,
                     version: 'v2.1'
+                });
+                FB.getLoginStatus(function (response) {
+                    if (response.status === "connected") {
+                        getUserInfo();
+                    }
                 });
             } catch (e) {
                 alert(e);
