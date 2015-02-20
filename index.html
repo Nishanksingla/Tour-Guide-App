@@ -173,58 +173,24 @@
         }
 
         /* Smartphones (portrait and landscape) ----------- */
-        @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        
+        @media only screen and (min-device-width : 320px) and (orientation : portrait) {
             .ui-block-a, .ui-block-b {
-                height: 100px;
+                height: 120px;
             }
         }
-
-        @media only screen and (min-width : 320px) {
+        @media only screen and (min-device-width : 320px) and (orientation : landscape) {
             .ui-block-a, .ui-block-b {
-                height: 100px;
+                height: 180px;
             }
         }
-
-         @media only screen and (max-width : 321px) {
-            .ui-block-a, .ui-block-b {
-                height: 100px;
-            }
-        }
-
-        /* Smartphones (portrait) ----------- */
-         /*@media only screen and (orientation : portrait){
-            .ui-block-a, .ui-block-b {
-                height: 100px;
-            }
-        }*/
-
-        /* Smartphones (landscape) ----------- */
-        /*@media only screen and (orientation : landscape) {
-            .ui-block-a, .ui-block-b {
-                height: 130px;
-            }
-        }*/
-
+        
         /* iPads (portrait and landscape) ----------- */
         @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
             .ui-block-a, .ui-block-b {
                 height: 250px;
             }
         }
-
-        /* iPads (landscape) ----------- */
-        /*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
-            .ui-block-a, .ui-block-b {
-                height: 250px;
-            }
-        }*/
-
-        /* iPads (portrait) ----------- */
-        /*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
-            .ui-block-a, .ui-block-b {
-                height: 250px;
-            }
-        }*/
 
         /* Desktops and laptops ----------- */
         @media only screen and (min-width : 1224px) {
@@ -239,13 +205,6 @@
                 height: 350px;
             }
         }
-
-        /* iPhone 4 ----------- */
-        /*@media only screen and (-webkit-min-device-pixel-ratio : 1.5), only screen and (min-device-pixel-ratio : 1.5) {
-            .ui-block-a, .ui-block-b {
-                height: 100px;
-            }
-        }*/
     </style>
 </head>
 <body>

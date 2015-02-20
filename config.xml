@@ -3,6 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
+        xmlns:android   = "http://schemas.android.com/apk/res/android"
         id        = "nishanktestapp"
         version   = "1.0.0">
 
@@ -62,6 +63,13 @@
     <param name="APP_ID" value="924651857553242" />
     <param name="APP_NAME" value="newTestApp" />
   </gap:plugin>
+  
+  <gap:config-file platform="android" parent="/manifest">
+	<supports-screens 
+        android:xlargeScreens="false" 
+        android:largeScreens="false" 
+        android:smallScreens="false" />
+</gap:config-file>
   
     <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 
