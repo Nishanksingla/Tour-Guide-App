@@ -141,6 +141,9 @@
     <style>
         .fbButton {
             width:200px !important;
+            padding:0 !important;
+            height:40px !important;
+            border-radius:0 0 !important;
             background:url(images/facebook.png) no-repeat center;
             height:100%;
             background-color:transparent !important;
@@ -254,7 +257,7 @@
             <div data-role="popup" id="loginPopup" class="ui-content">
                 <a href="#main" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
                 <h2 style="text-align:center">Login With Facebook</h2>                
-                <div style="text-align:center;width:100%;height:9%">
+                <div style="text-align:center;width:100%">
                     <button class="fbButton" onclick="getUserInfo()"></button>
                 </div>
                 <div id="fb-root"></div>
