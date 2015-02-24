@@ -255,7 +255,7 @@
             <a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>
         </div>
 
-        <div data-role="main" class="ui-content" style="min-height:inherit">
+        <div data-role="main" class="ui-content" id="MainPageContent">
             <div class="ui-grid-a">
                 <div class="ui-block-a">
                     <a href="#Options" data-place="LotusTemple">
@@ -445,16 +445,15 @@
                 $('#FBprofileimage').attr('src', response.data.url);
                 $('a[href="#revealPanel"]').show();
                 $('a[href="#loginPopup"]').hide();
-                $('#user').show();
-                
+                $('#user').show();                
                 //refreshPage();
                 if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
                 //    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
                     //    $('#loginPopup-screen').addClass('ui-screen-hidden');
                     alert('Pop Up is open');
+                    $('#loginPopup').popup("close");
                     window.location.reload();
-                }
-                $('#loginPopup').popup("close");
+                }                
                 $('#loading').hide();
             });
         }
@@ -483,6 +482,7 @@
 
         document.addEventListener('deviceready', function () {
             try {
+                $('#MainPageContent').css('min-height','inherit');
                 alert('Device is ready! Make sure you set your app_id below this alert.');
                 FB.init({
                     appId: '924651857553242',
