@@ -2,21 +2,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
-    
+
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
     <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/jquery.mobile-1.4.2.min.js"></script>    
+    <script src="js/jquery.mobile-1.4.2.min.js"></script>
     <script src="js/jquery.swipebox.min.js"></script>
 
     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
     <link rel="stylesheet" href="css/swipebox.min.css" />
 
     <title>Tour App</title>
-    <script type="text/javascript">        
+    <script type="text/javascript">
         $(function () {
 
-            $('.swipebox').swipebox();           
+            $('.swipebox').swipebox();
 
             $('.ui-grid-a a').click(function () {
                 debugger
@@ -73,11 +73,19 @@
                 }
             });
 
-            $("#loginPopup").on({popupbeforeposition: function () {
+            $("#loginPopup").on({
+                popupbeforeposition: function () {
                     var h = $(window).height() - 150;
                     var w = $(window).width() - 100;
                     $("#loginPopup").css("height", h);
                     $("#loginPopup").css("width", w);
+                }
+            });
+
+            $("#ReviewPopup").on({
+                popupbeforeposition: function () {
+                    var w = $(window).width() - 100;
+                    $("#ReviewPopup").css("width", w);
                 }
             });
 
@@ -139,6 +147,20 @@
     </script>
 
     <style>
+        #main { position: relative; }
+        #loading {
+            opacity: .8;
+            background: url("img/loader.gif") no-repeat center;
+            cursor: auto;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            position: absolute;
+            /*left: 0;*/
+            top: 0;
+            background-color: lightgrey;
+            /*display:none;*/
+        }
         .fbButton {
             width:200px !important;
             padding:0 !important;
@@ -176,7 +198,7 @@
         }
 
         /* Smartphones (portrait and landscape) ----------- */
-        
+
         @media only screen and (min-device-width : 320px) and (orientation : portrait) {
             .ui-block-a, .ui-block-b {
                 height: 120px;
@@ -187,7 +209,7 @@
                 height: 180px;
             }
         }
-        
+
         /* iPads (portrait and landscape) ----------- */
         @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
             .ui-block-a, .ui-block-b {
@@ -212,19 +234,25 @@
 </head>
 <body>
     <div data-role="page" id="main">
+        <div id="loading"></div>
         <div data-role="panel" id="revealPanel" data-display="reveal">
-            <a href="#main" data-rel="close" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-power" data-position-to="window" style="margin-left:10px;margin-top: 5px;" onclick="logout()">Log Out</a>
+            <!--<a href="#main" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-power ui-btn-icon-left">Close panel</a>-->
+            <div style="text-align:center;text-shadow:none">
+                <img id="FBprofileimage" style="border-radius: 50%;height:100px" />
+                <label id="FBusername" style="font-size:1.2em"></label>
+                <label id="email" style="font-size: .8em;"></label>
+            </div>
+            <div style="padding: 10px;border-top: 1px solid lightgrey;border-bottom: 1px solid lightgray;">
+                <a href="#main" style="position: relative;text-decoration:none" data-rel="close" class="ui-btn-icon-left ui-icon-power" onclick="logout()">Log Out</a>
+            </div>
         </div>
 
-        <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:52px">
-            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window" style="margin-left:10px;margin-top: 5px;">Login</a>
-            <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;top: .6em;display:none"></a>
+        <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;">
+            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window">Login</a>
+            <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;display:none"></a>
 
-            <h1 style="font-size:1.2em">New Delhi</h1>
-            <div id="user" style="position:absolute;top:0em;right:0em;padding-right:10px">
-                <label id="FBusername" style="float:left;margin-right:5px;margin-top:15px"></label>
-                <img id="FBprofileimage" style="float:left;border-radius: 50%;margin: 5px;height: 42px" />
-            </div>
+            <h1>New Delhi</h1>
+            <a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>
         </div>
 
         <div data-role="main" class="ui-content">
@@ -254,12 +282,14 @@
                     </a>
                 </div>
             </div>
+
             <div data-role="popup" id="loginPopup" class="ui-content">
                 <a href="#main" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-                <h2 style="text-align:center">Login With Facebook</h2>                
+                <!--<h2 style="text-align:center">Login With Facebook</h2>-->
                 <div style="text-align:center;width:100%">
                     <button class="fbButton" onclick="fbLogin()"></button>
                 </div>
+                <!--<div style="width:100%;text-align:center;margin-top:2%" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" data-scope="public_profile,email" onlogin="getUserInfo();"></div>-->
                 <div id="fb-root"></div>
             </div>
         </div>
@@ -349,47 +379,38 @@
     <div data-role="page" id="Reviews">
         <div data-role="header" data-position="fixed">
             <h1>Reviews</h1>
-            <a href="#AddReview" data-role="button" data-rel="dialog" class="ui-btn-right" data-icon="plus">Add Review</a>
+            <a href="#ReviewPopup" id="ReviewButton" data-rel="popup" class="ui-btn ui-btn-right ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-plus" data-position-to="window">Add Review</a>
         </div>
         <div data-role="main">
 
         </div>
+
+        <div data-role="popup" id="ReviewPopup" class="ui-content">
+            <a href="#Reviews" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <h2 style="text-align: center;">Add Review</h2>
+            <div>
+                <form method="post">
+                    <div class="ui-field-contain">
+                        <label for="Rating">Rating:</label>
+                        <select name="Rating" id="Rating">
+                            <option value="select">--Select--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="Descritpion">Descritpion:</label>
+                        <textarea name="Descritpion" id="Descritpion"></textarea>
+                    </div>
+                    <input type="submit" data-inline="true" value="Submit">
+                </form>
+            </div>
+        </div>
         <div data-role="footer" data-position="fixed">
             <a href="#Options" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left" data-transition="slide" data-direction="reverse">Back</a>
-        </div>
-    </div>
-
-    <div data-role="dialog" id="AddReview" data-url="AddReview" tabindex="0" class="ui-page ui-page-theme-a ui-dialog">
-        <div data-role="header" role="banner" class="ui-header ui-bar-inherit">
-            <a role="button" href="#Reviews" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-left" data-transition="pop" data-direction="reverse">Close</a>
-            <h1 class="ui-title" role="heading" aria-level="1">Add Review</h1>
-        </div>
-
-        <div data-role="main" class="ui-content">
-            <form method="post">
-
-                <div class="ui-field-contain">
-                    <label for="Rating">Rating:</label>
-                    <select name="Rating" id="Rating">
-                        <option value="select">--Select--</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <div class="ui-field-contain">
-                    <label for="Descritpion">Descritpion:</label>
-                    <textarea name="Descritpion" id="Descritpion"></textarea>
-                </div>
-                <input type="submit" data-inline="true" value="Submit">
-            </form>
-
-        </div>
-
-        <div data-role="footer" role="contentinfo" class="ui-footer ui-bar-inherit">
-            <a href="#Reviews" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-icon-back ui-btn-icon-left">Return</a>
         </div>
     </div>
 
@@ -415,22 +436,24 @@
         }
 
         function getUserInfo() {
-                FB.api('/me', function (response) {
-                    $('#FBusername').val(response.first_name);
-                    $('#FBusername').text(response.first_name);
-                });
-                FB.api('/me/picture', { "type": "large" }, function (response) {
-                    $('#FBprofileimage').attr('src', response.data.url);
-                });
+            FB.api('/me', function (response) {
+                $('#FBusername').val(response.first_name);
+                $('#FBusername').text(response.first_name);
+                $('#email').text(response.email);
+            });
+            FB.api('/me/picture', { "type": "large" }, function (response) {
+                $('#FBprofileimage').attr('src', response.data.url);
                 $('a[href="#revealPanel"]').show();
                 $('a[href="#loginPopup"]').hide();
                 $('#user').show();
-                //$('#loginPopup').popup("close");
-                if ($('#loginPopup').parent().hasClass('ui-popup-active')) {                    
+                if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
                     $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
-                    $('#loginPopup-screen').addClass('ui-screen-hidden');                    
+                    $('#loginPopup-screen').addClass('ui-screen-hidden');
                 }
-            }
+                $('#loginPopup').popup("close");
+                $('#loading').hide();
+            });
+        }
 
         function logout() {
             FB.logout(function (response) {
