@@ -446,20 +446,36 @@
                 $('a[href="#revealPanel"]').show();
                 $('a[href="#loginPopup"]').hide();
                 $('#user').show();
-                if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
-                    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
-                    $('#loginPopup-screen').addClass('ui-screen-hidden');
-                }
-                $('#loginPopup').popup("close");
+                window.location.reload();
+                //refreshPage();
+                //if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
+                //    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
+                //    $('#loginPopup-screen').addClass('ui-screen-hidden');
+                //}
+                //$('#loginPopup').popup("close");
                 $('#loading').hide();
             });
         }
 
+        function refreshPage() {
+            $.mobile.changePage(
+              window.location.href,
+              {
+                  allowSamePageTransition: true,
+                  transition: 'none',
+                  showLoadMsg: false,
+                  reloadPage: true
+              }
+            );
+        }
+
         function logout() {
+            $('#loading').show();
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#user').hide();
+                $('#loading').hide();
             });
         }
 
