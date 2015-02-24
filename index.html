@@ -447,9 +447,10 @@
                 $('a[href="#loginPopup"]').hide();
                 $('#user').show();
                 if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
-                    //alert('Pop Up is open');
+                    console.log('Pop Up is open');                    
                     $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
                     $('#loginPopup-screen').addClass('ui-screen-hidden');
+                    window.location.reload();
                 }
                 $('#loading').hide();
             });
