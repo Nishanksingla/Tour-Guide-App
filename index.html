@@ -458,18 +458,20 @@
         }
 
         function logout() {
-            $('#loading').show();
+            document.getElementById(one).style.display = 'block';
+            //document.getElementById(two).style.display = 'none';
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#user').hide();
                 $('#loading').hide();
+                document.getElementById(two).style.display = 'none';
             });
         }
 
         document.addEventListener('deviceready', function () {
             try {                
-                alert('Device is ready! Make sure you set your app_id below this alert.');
+                console.log('Device is ready! Make sure you set your app_id below this alert.');
                 FB.init({
                     appId: '924651857553242',
                     nativeInterface: CDV.FB,
