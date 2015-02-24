@@ -450,7 +450,8 @@
                     console.log('Pop Up is open');                    
                     $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
                     $('#loginPopup-screen').addClass('ui-screen-hidden');
-                    window.location.reload();
+                    $('#loginPopup').popup("close");
+                   // window.location.reload();
                 }
                 $('#loading').hide();
             });
