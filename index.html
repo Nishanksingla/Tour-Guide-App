@@ -158,7 +158,7 @@
             position: absolute;            
             top: 0;
             background-color: lightgrey;
-            display:none;            
+            
         }
         .fbButton {
             width:200px !important;
@@ -480,9 +480,9 @@
                 });
                 FB.getLoginStatus(function (response) {
                     if (response.status === "connected") {
-                        $('#loading').show();
                         getUserInfo();
                     }
+                    $('#loading').hide();
                 });
             } catch (e) {
                 alert(e);
