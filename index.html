@@ -254,7 +254,7 @@
             <a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>
         </div>
 
-        <div data-role="main" class="ui-content">
+        <div data-role="main" class="ui-content" style="min-height:inherit">
             <div class="ui-grid-a">
                 <div class="ui-block-a">
                     <a href="#Options" data-place="LotusTemple">
@@ -447,7 +447,7 @@
                 $('a[href="#loginPopup"]').hide();
                 $('#user').show();
                 if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
-                    alert('Pop Up is open');
+                    //alert('Pop Up is open');
                     $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
                     $('#loginPopup-screen').addClass('ui-screen-hidden');
                 }
