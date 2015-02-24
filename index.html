@@ -158,7 +158,7 @@
             position: absolute;            
             top: 0;
             background-color: lightgrey;
-            display:none;            
+            /*display:none;*/            
         }
         .fbButton {
             width:200px !important;
@@ -429,6 +429,7 @@
         function fbLogin() {
             FB.login(function (response) {
                 if (response.status === 'connected') {
+                    $('#loading').show();
                     getUserInfo();
                 }
             }, { scope: 'public_profile,email' });
