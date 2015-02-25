@@ -460,15 +460,15 @@
         function logout() {
             console.log('facebook logout');
             //$('#loading').show();
-            //$('#loading').css('display', 'block');
-            spinnerplugin.show();
+            $('#loading').css('display', 'block');
+           // spinnerplugin.show();
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#user').hide();
                 //$('#loading').hide();
-                //$('#loading').css('display', 'none');
-                spinnerplugin.hide();
+                $('#loading').css('display', 'none');
+                //spinnerplugin.hide();
             });
         }
 
