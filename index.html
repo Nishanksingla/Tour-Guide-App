@@ -462,17 +462,14 @@
         function logout() {
             console.log('panel loader show');
             alert('fb logout');
-            $('#loading').show();
             $('#Panelloader').show();
-            $('#Panelloader').css('display', 'block');
-            $('#loading').css('display', 'block');
             console.log('loader is showing');
+            alert('loader showed');
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
-                $('#loading').hide();
             });
         }
 
