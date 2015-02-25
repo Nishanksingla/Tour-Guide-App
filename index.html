@@ -151,7 +151,7 @@
 
     <style>
         #main { position: relative; }
-        #loading {
+        #loading, #Panelloader {
             opacity: .8;
             background: url("images/ajax-loader.gif") no-repeat center;
             cursor: auto;
@@ -238,7 +238,7 @@
     <div data-role="page" id="main">
         <div id="loading"></div>
         <div data-role="panel" id="revealPanel" data-display="reveal">
-            <!--<a href="#main" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-power ui-btn-icon-left">Close panel</a>-->
+            <div id="Panelloader"></div>
             <div style="text-align:center;text-shadow:none">
                 <img id="FBprofileimage" style="border-radius: 50%;height:100px" />
                 <label id="FBusername" style="font-size:1.2em"></label>
@@ -455,24 +455,24 @@
                     $('#loginPopup').popup("close");
                 }
                 $('#loading').hide();
+                $('#Panelloader').hide();
             });
         }
 
         function logout() {
-            console.log('facebook logout');
-            $('#loading').show();
-            $('#loading').css('display', 'block');
-            //$('#loading').css('visibility', 'visible');
-            console.log('Loading show');
-
+            alert('facebook logout');
+            //$('#loading').show();
+            //$('#loading').css('display', 'block');
+            $('#Panelloader').show();
+            alert('Loading show');
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
 
                 $('#revealPanel').panel("close");
-
-                $('#loading').hide();
-                $('#loading').css('display', 'none');
+                $('#Panelloader').hide();
+                //$('#loading').hide();
+                //$('#loading').css('display', 'none');
             });
         }
 
