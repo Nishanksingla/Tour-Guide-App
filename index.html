@@ -65,8 +65,8 @@
                 }
             });
 
-            $(document).on("swipeleft swiperight", "#main", function (e) {
-                alert('finger swiped');
+            $(document).on("swiperight", "#main", function (e) {
+                alert('finger swiped'+e.type);
                 if ($(".ui-page-active").jqmData("panel") !== "open") {
                     alert('panel is closed');
                     if (e.type === "swiperight") {
@@ -460,19 +460,12 @@
         }
 
         function logout() {
-            alert('facebook logout');
-            //$('#loading').show();
-            //$('#loading').css('display', 'block');
             $('#Panelloader').show();
-            alert('Loading show');
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
-
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
-                //$('#loading').hide();
-                //$('#loading').css('display', 'none');
             });
         }
 
