@@ -158,8 +158,7 @@
             position: fixed;            
             top: 0;
             left:0;
-            background-color: lightgrey;
-            
+            background-color: lightgrey;            
         }
         .fbButton {
             width:200px !important;
@@ -460,15 +459,15 @@
 
         function logout() {
             console.log('facebook logout');
-            $('#loading').show();
-            $('#loading').css('display', 'block');
+            //$('#loading').show();
+            //$('#loading').css('display', 'block');
             spinnerplugin.show();
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#user').hide();
-                $('#loading').hide();
-                $('#loading').css('display', 'none');
+                //$('#loading').hide();
+                //$('#loading').css('display', 'none');
                 spinnerplugin.hide();
             });
         }
