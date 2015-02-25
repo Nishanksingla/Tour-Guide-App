@@ -66,7 +66,7 @@
             });
 
             $(document).on("swiperight", "#main", function (e) {
-                alert('finger swiped'+e.type);
+                alert('finger swiped '+e.type);
                 if ($(".ui-page-active").jqmData("panel") !== "open") {
                     alert('panel is closed');
                     if (e.type === "swiperight") {
@@ -461,6 +461,7 @@
 
         function logout() {
             console.log('panel loader show');
+            alert('fb logout');
             $('#Panelloader').show();
             $('#Panelloader').css('display','block');
             console.log('loader is showing');
