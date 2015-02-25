@@ -158,7 +158,7 @@
             width: 100%;
             height: 100%;
             z-index: 200000;
-            position: fixed;            
+            position: absolute;            
             top: 0;
             left:0;
             background-color: lightgrey;            
@@ -455,21 +455,24 @@
                     $('#loginPopup').popup("close");
                 }
                 $('#loading').hide();
-                $('#Panelloader').hide();
+                //$('#Panelloader').hide();
             });
         }
 
         function logout() {
             console.log('panel loader show');
             alert('fb logout');
+            $('#loading').show();
             $('#Panelloader').show();
-            $('#Panelloader').css('display','block');
+            $('#Panelloader').css('display', 'block');
+            $('#loading').css('display', 'block');
             console.log('loader is showing');
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
+                $('#loading').hide();
             });
         }
 
