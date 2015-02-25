@@ -460,21 +460,15 @@
         }
 
         function logout() {
-            console.log('panel loader show');
             alert('fb logout');
-            $('#Panelloader').show();
-            console.log('loader is showing');
+            $('#Panelloader').show();            
             for (var i = 0; i < 1000; i++) { }
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
-<<<<<<< HEAD
             });
-=======
-            }), 6000);
->>>>>>> origin/master
         }
 
         document.addEventListener('deviceready', function () {
