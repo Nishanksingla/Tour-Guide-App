@@ -464,13 +464,13 @@
             alert('fb logout');
             $('#Panelloader').show();
             console.log('loader is showing');
-            alert('loader showed');
-            FB.logout(function (response) {
+            //alert('loader showed');
+            setTimeout(FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
-            });
+            }), 2000);
         }
 
         document.addEventListener('deviceready', function () {
