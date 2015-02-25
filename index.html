@@ -66,8 +66,11 @@
             });
 
             $(document).on("swipeleft swiperight", "#main", function (e) {
+                alert('finger swiped');
                 if ($(".ui-page-active").jqmData("panel") !== "open") {
+                    alert('panel is closed');
                     if (e.type === "swiperight") {
+                        alert('opening panel');
                         $("#revealPanel").panel("open");
                     }
                 }
@@ -242,7 +245,7 @@
                 <label id="email" style="font-size: .8em;"></label>
             </div>
             <div style="padding: 10px;border-top: 1px solid lightgrey;border-bottom: 1px solid lightgray;">
-                <a href="#main" style="position: relative;text-decoration:none" data-rel="close" class="ui-btn-icon-left ui-icon-power" onclick="logout()">Log Out</a>
+                <a href="#main" style="position: relative;text-decoration:none" class="ui-btn-icon-left ui-icon-power" onclick="logout()">Log Out</a>
             </div>
         </div>
 
@@ -444,14 +447,12 @@
             FB.api('/me/picture', { "type": "large" }, function (response) {
                 $('#FBprofileimage').attr('src', response.data.url);
                 $('a[href="#revealPanel"]').show();
-                $('a[href="#loginPopup"]').hide();
-                $('#user').show();
+                $('a[href="#loginPopup"]').hide();                
                 if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
                     console.log('Pop Up is open');                    
                     $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
                     $('#loginPopup-screen').addClass('ui-screen-hidden');
                     $('#loginPopup').popup("close");
-                   // window.location.reload();
                 }
                 $('#loading').hide();
             });
@@ -459,16 +460,19 @@
 
         function logout() {
             console.log('facebook logout');
-            //$('#loading').show();
+            $('#loading').show();
             $('#loading').css('display', 'block');
-           // spinnerplugin.show();
+            //$('#loading').css('visibility', 'visible');
+            console.log('Loading show');
+
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
-                $('#user').hide();
-                //$('#loading').hide();
+
+                $('#revealPanel').panel("close");
+
+                $('#loading').hide();
                 $('#loading').css('display', 'none');
-                //spinnerplugin.hide();
             });
         }
 
