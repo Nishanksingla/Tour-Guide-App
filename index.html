@@ -316,24 +316,7 @@
 
             //document.getElementById('loading').style.display = 'block';
             document.getElementById('MainPageContent').style.minHeight = 'inherit';
-            FB.init({
-                appId: '924651857553242',
-                nativeInterface: CDV.FB,
-                useCachedDialogs: false,
-                cookie: true,
-                xfbml: true,
-                version: 'v2.1'
-            });
-
-            FB.getLoginStatus(function (response) {
-                alert('Getting FB login status');
-                if (response.status === "connected") {
-                    getUserInfo();
-                }
-               $('#loading').hide();
-            });
-
-
+            
             function fbLogin() {
                 $('#loading').show();
                 FB.login(function (response) {
@@ -344,6 +327,7 @@
             }
 
             function getUserInfo() {
+                alert('getting user info');
                 FB.api('/me', function (response) {
                     $('#FBusername').val(response.first_name);
                     $('#FBusername').text(response.first_name);
@@ -508,14 +492,30 @@
 
         });
 
-        //document.addEventListener('deviceready', function () {
-        //    try {                
-        //        //alert('Device is ready!');
-                
-        //    } catch (e) {
-        //        alert(e);
-        //    }
-        //}, false);
+        document.addEventListener('deviceready', function () {
+            try {
+                alert('Device is ready!');
+                FB.init({
+                    appId: '924651857553242',
+                    nativeInterface: CDV.FB,
+                    useCachedDialogs: false,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.1'
+                });
+
+                FB.getLoginStatus(function (response) {
+                    alert('Getting FB login status');
+                    if (response.status === "connected") {
+                        getUserInfo();
+                    }
+                    $('#loading').hide();
+                });
+
+            } catch (e) {
+                alert(e);
+            }
+        }, false);
     </script>
 </body>
 </html>
