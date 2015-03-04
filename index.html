@@ -307,9 +307,7 @@
             alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
             document.getElementById('loading').style.display = 'none';
         }
-        $(function () {
-            $('#MainPageContent').css('min-height', 'inherit');
-
+        $(function () {          
             $('.swipebox').swipebox();
 
             $('.ui-grid-a a').click(function () {
@@ -498,14 +496,14 @@
 
         function logout() {
             $('#Panelloader').show();
-            $('#loading').show();
-            Alert('Loggin out..');
+            //$('#loading').show();
+            Alert('Logging out..');
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
-                $('#loading').hide();
+               // $('#loading').hide();
             });
         }
 
