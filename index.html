@@ -295,71 +295,20 @@
 
 
     <script>
-        
+        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
+            alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+            document.getElementById('loading').style.display = 'none';            
+        }
+        if (typeof CDV == 'undefined') {
+            alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+            document.getElementById('loading').style.display = 'none';            
+        }
+        if (typeof FB == 'undefined') {
+            alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+            document.getElementById('loading').style.display = 'none';
+        }
         $(function () {
-
-            if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
-                alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-                //document.getElementById('loading').style.display = 'none';
-                $('#loading').hide();
-            }
-            if (typeof CDV == 'undefined') {
-                alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-               // document.getElementById('loading').style.display = 'none';
-                $('#loading').hide();
-            }
-            if (typeof FB == 'undefined') {
-                alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-               // document.getElementById('loading').style.display = 'none';
-                $('#loading').hide();
-            }
-
-            //document.getElementById('loading').style.display = 'block';
-            document.getElementById('MainPageContent').style.minHeight = 'inherit';
-            
-            function fbLogin() {
-                $('#loading').show();
-                FB.login(function (response) {
-                    if (response.status === 'connected') {
-                        getUserInfo();
-                    }
-                }, { scope: 'public_profile,email' });
-            }
-
-            function getUserInfo() {
-                alert('getting user info');
-                FB.api('/me', function (response) {
-                    $('#FBusername').val(response.first_name);
-                    $('#FBusername').text(response.first_name);
-                    $('#email').text(response.email);
-                });
-                FB.api('/me/picture', { "type": "large" }, function (response) {
-                    $('#FBprofileimage').attr('src', response.data.url);
-                    $('a[href="#revealPanel"]').show();
-                    $('a[href="#loginPopup"]').hide();
-                    if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
-                        console.log('Pop Up is open');
-                        $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
-                        $('#loginPopup-screen').addClass('ui-screen-hidden');
-                        $('#loginPopup').popup("close");
-                    }
-                    $('#loading').hide();
-                    $('#Panelloader').hide();
-                });
-            }
-
-            function logout() {
-                $('#Panelloader').show();
-                $('#loading').show();
-                FB.logout(function (response) {
-                    $('a[href="#loginPopup"]').show();
-                    $('a[href="#revealPanel"]').hide();
-                    $('#revealPanel').panel("close");
-                    $('#Panelloader').hide();
-                    $('#loading').hide();
-                });
-            }
-
+            $('#MainPageContent').css('min-height', 'inherit');
 
             $('.swipebox').swipebox();
 
@@ -494,7 +443,8 @@
 
         document.addEventListener('deviceready', function () {
             try {
-                alert('Device is ready!');
+                document.getElementById('MainPageContent').style.minHeight = 'inherit';
+                //alert('Device is ready!');
                 FB.init({
                     appId: '924651857553242',
                     nativeInterface: CDV.FB,
@@ -505,7 +455,6 @@
                 });
 
                 FB.getLoginStatus(function (response) {
-                    alert('Getting FB login status');
                     if (response.status === "connected") {
                         getUserInfo();
                     }
@@ -516,6 +465,52 @@
                 alert(e);
             }
         }, false);
+
+        function fbLogin() {
+            $('#loading').show();
+            FB.login(function (response) {
+                if (response.status === 'connected') {
+                    getUserInfo();
+                }
+            }, { scope: 'public_profile,email' });
+        }
+
+        function getUserInfo() {
+            alert('getting user info');
+            FB.api('/me', function (response) {
+                $('#FBusername').val(response.first_name);
+                $('#FBusername').text(response.first_name);
+                $('#email').text(response.email);
+            });
+            FB.api('/me/picture', { "type": "large" }, function (response) {
+                $('#FBprofileimage').attr('src', response.data.url);
+                $('a[href="#revealPanel"]').show();
+                $('a[href="#loginPopup"]').hide();
+                if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
+                    console.log('Pop Up is open');
+                    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
+                    $('#loginPopup-screen').addClass('ui-screen-hidden');
+                    $('#loginPopup').popup("close");
+                }
+                $('#loading').hide();
+                $('#Panelloader').hide();
+            });
+        }
+
+        function logout() {
+            $('#Panelloader').show();
+            $('#loading').show();
+            FB.logout(function (response) {
+                $('a[href="#loginPopup"]').show();
+                $('a[href="#revealPanel"]').hide();
+                $('#revealPanel').panel("close");
+                $('#Panelloader').hide();
+                $('#loading').hide();
+            });
+        }
+        
+        
+      
     </script>
 </body>
 </html>
