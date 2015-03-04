@@ -441,8 +441,12 @@
 
         document.addEventListener('deviceready', function () {
             try {
-                document.getElementById('MainPageContent').style.minHeight = 'inherit';
+                console.log('Device is ready!');
                 //alert('Device is ready!');
+                //document.getElementById('MainPageContent').style.minHeight = 'inherit';
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('MainPageContent').style.minHeight = 'inherit';
+               // $('#MainPageContent').css('min-height','inherit');
                 FB.init({
                     appId: '924651857553242',
                     nativeInterface: CDV.FB,
