@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="css/swipebox.min.css" />
 
     <title>Tour App</title>
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         
 
-    </script>
+    </script>-->
 
     <style>
         #main { position: relative; }
@@ -294,38 +294,38 @@
     <script src="facebook-js-sdk.js"></script>
 
     <script>
-        $(function () {
         if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
             alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-            $('#loading').hide();
+            document.getElementById('loading').style.display = 'none';
         }
         if (typeof CDV == 'undefined') {
             alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-            $('#loading').hide();
+            document.getElementById('loading').style.display = 'none';
         }
         if (typeof FB == 'undefined') {
             alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-            $('#loading').hide();
+            document.getElementById('loading').style.display = 'none';
         }
 
-            $('#loading').show();
-            document.getElementById('MainPageContent').style.minHeight = 'inherit';
-            FB.init({
-                appId: '924651857553242',
-                nativeInterface: CDV.FB,
-                useCachedDialogs: false,
-                cookie: true,
-                xfbml: true,
-                version: 'v2.1'
-            });
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('MainPageContent').style.minHeight = 'inherit';
+        FB.init({
+            appId: '924651857553242',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false,
+            cookie: true,
+            xfbml: true,
+            version: 'v2.1'
+        });
 
-            FB.getLoginStatus(function (response) {
-                if (response.status === "connected") {
-                    getUserInfo();
-                }
-                $('#loading').hide();
-            });
-
+        FB.getLoginStatus(function (response) {
+            alert('Getting login status');
+            if (response.status === "connected") {
+                getUserInfo();
+            }
+            document.getElementById('loading').style.display = 'none';
+        });
+        $(function () {
             function fbLogin() {
                 $('#loading').show();
                 FB.login(function (response) {
