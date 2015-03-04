@@ -370,6 +370,7 @@
 
             $("#loginPopup").on({
                 popupbeforeposition: function () {
+                    $('#MainPageContent').css('min-height', 'inherit');
                     var h = $(window).height() - 150;
                     var w = $(window).width() - 100;
                     $("#loginPopup").css("height", h);
@@ -442,11 +443,9 @@
         document.addEventListener('deviceready', function () {
             try {
                 console.log('Device is ready!');
-                //alert('Device is ready!');
-                //document.getElementById('MainPageContent').style.minHeight = 'inherit';
                 document.getElementById('loading').style.display = 'block';
                 document.getElementById('MainPageContent').style.minHeight = 'inherit';
-               // $('#MainPageContent').css('min-height','inherit');
+                $('#MainPageContent').css('min-height','inherit');
                 FB.init({
                     appId: '924651857553242',
                     nativeInterface: CDV.FB,
@@ -455,7 +454,7 @@
                     xfbml: true,
                     version: 'v2.1'
                 });
-
+                $('#MainPageContent').css('min-height', 'inherit');
                 FB.getLoginStatus(function (response) {
                     if (response.status === "connected") {
                         getUserInfo();
@@ -499,9 +498,9 @@
         }
 
         function logout() {
+            alert('Logging Out..');            
+            console.log('Logging out..');
             $('#Panelloader').show();
-            //$('#loading').show();
-            alert('Logging out..');
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
