@@ -475,8 +475,7 @@
             }, { scope: 'public_profile,email' });
         }
 
-        function getUserInfo() {
-            alert('getting user info');
+        function getUserInfo() {            
             FB.api('/me', function (response) {
                 $('#FBusername').val(response.first_name);
                 $('#FBusername').text(response.first_name);
@@ -500,6 +499,7 @@
         function logout() {
             $('#Panelloader').show();
             $('#loading').show();
+            Alert('Loggin out..');
             FB.logout(function (response) {
                 $('a[href="#loginPopup"]').show();
                 $('a[href="#revealPanel"]').hide();
@@ -508,9 +508,7 @@
                 $('#loading').hide();
             });
         }
-        
-        
-      
+
     </script>
 </body>
 </html>
