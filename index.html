@@ -3,14 +3,149 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
 
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="js/jquery.swipebox.min.js"></script>
 
     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
     <link rel="stylesheet" href="css/swipebox.min.css" />
 
     <title>Tour App</title>
     <script type="text/javascript">
-        
+        $(function () {
+            //alert('jquery ready and loaded');
+            $('.swipebox').swipebox();
+
+            $('.ui-grid-a a').click(function () {
+                debugger
+                if ($(this).attr('data-place') === 'TajMahal') {
+                    sessionStorage.panoid = 'rEQIKH3RXo4AAAGusnEkNQ';
+                    sessionStorage.place = 'Taj Mahal, Agra India';
+                } else if ($(this).attr('data-place') === 'LotusTemple') {
+                    sessionStorage.panoid = 'WdBZGlAP9jwAAAGu41fwjQ';
+                    sessionStorage.place = 'Lotus Temple, New Delhi India';
+                } else if ($(this).attr('data-place') === 'QutubMinar') {
+                    sessionStorage.panoid = 'qGe1pZh1hMYAAAAGOoSngA';
+                    sessionStorage.place = 'Qutub Minar, New Delhi India';
+                } else if ($(this).attr('data-place') === 'JamaMasjid') {
+                    sessionStorage.panoid = 'jtGqAJ9PkhcAAAAGOr7mCQ';
+                    sessionStorage.place = 'Jama Masjid, New Delhi India';
+                } else if ($(this).attr('data-place') === 'HumayunTomb') {
+                    sessionStorage.panoid = 'Px7UKtIDgh4AAAQDMaGfRQ';
+                    sessionStorage.place = 'Humayun Tomb, New Delhi India';
+                }
+            });
+
+            $(document).on("pageshow", "#StreetView", function () {
+                debugger
+                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
+                panoramaOptions.pano = sessionStorage.panoid;
+                panorama.setPano(sessionStorage.panoid);
+                panorama.setVisible(true);
+            });
+
+            $(document).on("pageshow", "#Directions", function () {
+                if (directionsDisplay != null) {
+                    $('#map-canvas').html('');
+                    directionsDisplay.setMap(null);
+                    directionsDisplay = null;
+                }
+                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
+                $('#logMessages').html('');
+
+                $('#logMessages').append('<label>Directions page shown</label></br>');
+
+                if (navigator.geolocation) {
+                    $('#logMessages').append('<label>navigator.geolocation is supported</label></br>');
+                    navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true });
+                } else {
+                    $('#logMessages').append('navigator.geolocation not supported</label></br>');
+                }
+            });
+
+            $(document).on("swiperight", "#main", function (e) {
+                alert('finger swiped '+e.type);
+                if ($(".ui-page-active").jqmData("panel") !== "open") {
+                    alert('panel is closed');
+                    if (e.type === "swiperight") {
+                        alert('opening panel');
+                        $("#revealPanel").panel("open");
+                    }
+                }
+            });
+
+            $("#loginPopup").on({
+                popupbeforeposition: function () {
+                    var h = $(window).height() - 150;
+                    var w = $(window).width() - 100;
+                    $("#loginPopup").css("height", h);
+                    $("#loginPopup").css("width", w);
+                }
+            });
+
+            $("#ReviewPopup").on({
+                popupbeforeposition: function () {
+                    var w = $(window).width() - 100;
+                    $("#ReviewPopup").css("width", w);
+                }
+            });
+
+            var onSuccess = function (position) {
+
+                $('#logMessages').append('<label>latitude: ' + position.coords.latitude + '</label></br>');
+                $('#logMessages').append('<label>longitude: ' + position.coords.longitude + '</label></br>');
+
+                directionsDisplay = new google.maps.DirectionsRenderer();
+
+                var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                $('#logMessages').append('<label>startPosition: ' + startPosition + '</label></br>');
+
+                var mapOptions = {
+                    zoom: 7,
+                    center: startPosition
+                };
+
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+                directionsDisplay.setMap(map);
+                var request = {
+                    origin: startPosition,
+                    destination: sessionStorage.place,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function (response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        alert('Error getting route');
+                    }
+                });
+            };
+
+            function onError(error) {
+                alert('code: ' + error.code + '\n' +
+                      'message: ' + error.message + '\n');
+                $('#logMessages').append('<label>Error getting current position' + error.code + error.message + '</label></br>');
+            }
+
+            var directionsDisplay;
+            var directionsService = new google.maps.DirectionsService();
+            var map;
+
+            var panoramaOptions = {
+                pano: 'rEQIKH3RXo4AAAGusnEkNQ',
+                pov: {
+                    heading: 360,
+                    pitch: 10
+                }
+            };
+
+            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+
+        });
 
     </script>
 
@@ -281,11 +416,6 @@
         </div>
     </div>
 
-
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/jquery.mobile-1.4.2.min.js"></script>
-    <script src="js/jquery.swipebox.min.js"></script>
-
     <!-- cordova -->
     <script src="cordova.js"></script>
     <!-- cordova facebook plugin -->
@@ -294,220 +424,74 @@
     <script src="facebook-js-sdk.js"></script>
 
     <script>
-        $(function () {
-        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
-            alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-            $('#loading').hide();
-        }
-        if (typeof CDV == 'undefined') {
-            alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-            $('#loading').hide();
-        }
-        if (typeof FB == 'undefined') {
-            alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-            $('#loading').hide();
-        }
 
+        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+        if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+        if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+
+        function fbLogin() {
             $('#loading').show();
-            document.getElementById('MainPageContent').style.minHeight = 'inherit';
-            FB.init({
-                appId: '924651857553242',
-                nativeInterface: CDV.FB,
-                useCachedDialogs: false,
-                cookie: true,
-                xfbml: true,
-                version: 'v2.1'
-            });
-
-            FB.getLoginStatus(function (response) {
-                if (response.status === "connected") {
+            FB.login(function (response) {
+                if (response.status === 'connected') {                    
                     getUserInfo();
                 }
-                $('#loading').hide();
-            });
+            }, { scope: 'public_profile,email' });
+        }
 
-            function fbLogin() {
+        function getUserInfo() {
+            FB.api('/me', function (response) {
+                $('#FBusername').val(response.first_name);
+                $('#FBusername').text(response.first_name);
+                $('#email').text(response.email);
+            });
+            FB.api('/me/picture', { "type": "large" }, function (response) {
+                $('#FBprofileimage').attr('src', response.data.url);
+                $('a[href="#revealPanel"]').show();
+                $('a[href="#loginPopup"]').hide();                
+                if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
+                    console.log('Pop Up is open');                    
+                    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
+                    $('#loginPopup-screen').addClass('ui-screen-hidden');
+                    $('#loginPopup').popup("close");
+                }
+                $('#loading').hide();
+                $('#Panelloader').hide();
+            });
+        }
+
+        function logout() {
+            $('#Panelloader').show();
+            FB.logout(function (response) {
+                $('a[href="#loginPopup"]').show();
+                $('a[href="#revealPanel"]').hide();
+                $('#revealPanel').panel("close");
+                $('#Panelloader').hide();
+            });
+        }
+
+        document.addEventListener('deviceready', function () {
+            try {                
+                //alert('Device is ready!');
                 $('#loading').show();
-                FB.login(function (response) {
-                    if (response.status === 'connected') {
+                document.getElementById('MainPageContent').style.minHeight = 'inherit';
+                FB.init({
+                    appId: '924651857553242',
+                    nativeInterface: CDV.FB,
+                    useCachedDialogs: false,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.1'
+                });
+                FB.getLoginStatus(function (response) {
+                    if (response.status === "connected") {
                         getUserInfo();
                     }
-                }, { scope: 'public_profile,email' });
-            }
-
-            function getUserInfo() {
-                FB.api('/me', function (response) {
-                    $('#FBusername').val(response.first_name);
-                    $('#FBusername').text(response.first_name);
-                    $('#email').text(response.email);
-                });
-                FB.api('/me/picture', { "type": "large" }, function (response) {
-                    $('#FBprofileimage').attr('src', response.data.url);
-                    $('a[href="#revealPanel"]').show();
-                    $('a[href="#loginPopup"]').hide();
-                    if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
-                        console.log('Pop Up is open');
-                        $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
-                        $('#loginPopup-screen').addClass('ui-screen-hidden');
-                        $('#loginPopup').popup("close");
-                    }
-                    $('#loading').hide();
-                    $('#Panelloader').hide();
-                });
-            }
-
-            function logout() {
-                $('#Panelloader').show();
-                $('#loading').show();
-                FB.logout(function (response) {
-                    $('a[href="#loginPopup"]').show();
-                    $('a[href="#revealPanel"]').hide();
-                    $('#revealPanel').panel("close");
-                    $('#Panelloader').hide();
                     $('#loading').hide();
                 });
+            } catch (e) {
+                alert(e);
             }
-
-
-            $('.swipebox').swipebox();
-
-            $('.ui-grid-a a').click(function () {
-                debugger
-                if ($(this).attr('data-place') === 'TajMahal') {
-                    sessionStorage.panoid = 'rEQIKH3RXo4AAAGusnEkNQ';
-                    sessionStorage.place = 'Taj Mahal, Agra India';
-                } else if ($(this).attr('data-place') === 'LotusTemple') {
-                    sessionStorage.panoid = 'WdBZGlAP9jwAAAGu41fwjQ';
-                    sessionStorage.place = 'Lotus Temple, New Delhi India';
-                } else if ($(this).attr('data-place') === 'QutubMinar') {
-                    sessionStorage.panoid = 'qGe1pZh1hMYAAAAGOoSngA';
-                    sessionStorage.place = 'Qutub Minar, New Delhi India';
-                } else if ($(this).attr('data-place') === 'JamaMasjid') {
-                    sessionStorage.panoid = 'jtGqAJ9PkhcAAAAGOr7mCQ';
-                    sessionStorage.place = 'Jama Masjid, New Delhi India';
-                } else if ($(this).attr('data-place') === 'HumayunTomb') {
-                    sessionStorage.panoid = 'Px7UKtIDgh4AAAQDMaGfRQ';
-                    sessionStorage.place = 'Humayun Tomb, New Delhi India';
-                }
-            });
-
-            $(document).on("pageshow", "#StreetView", function () {
-                debugger
-                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
-                panoramaOptions.pano = sessionStorage.panoid;
-                panorama.setPano(sessionStorage.panoid);
-                panorama.setVisible(true);
-            });
-
-            $(document).on("pageshow", "#Directions", function () {
-                if (directionsDisplay != null) {
-                    $('#map-canvas').html('');
-                    directionsDisplay.setMap(null);
-                    directionsDisplay = null;
-                }
-                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
-                $('#logMessages').html('');
-
-                $('#logMessages').append('<label>Directions page shown</label></br>');
-
-                if (navigator.geolocation) {
-                    $('#logMessages').append('<label>navigator.geolocation is supported</label></br>');
-                    navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true });
-                } else {
-                    $('#logMessages').append('navigator.geolocation not supported</label></br>');
-                }
-            });
-
-            $(document).on("swiperight", "#main", function (e) {
-                alert('finger swiped ' + e.type);
-                if ($(".ui-page-active").jqmData("panel") !== "open") {
-                    alert('panel is closed');
-                    if (e.type === "swiperight") {
-                        alert('opening panel');
-                        $("#revealPanel").panel("open");
-                    }
-                }
-            });
-
-            $("#loginPopup").on({
-                popupbeforeposition: function () {
-                    var h = $(window).height() - 150;
-                    var w = $(window).width() - 100;
-                    $("#loginPopup").css("height", h);
-                    $("#loginPopup").css("width", w);
-                }
-            });
-
-            $("#ReviewPopup").on({
-                popupbeforeposition: function () {
-                    var w = $(window).width() - 100;
-                    $("#ReviewPopup").css("width", w);
-                }
-            });
-
-            var onSuccess = function (position) {
-
-                $('#logMessages').append('<label>latitude: ' + position.coords.latitude + '</label></br>');
-                $('#logMessages').append('<label>longitude: ' + position.coords.longitude + '</label></br>');
-
-                directionsDisplay = new google.maps.DirectionsRenderer();
-
-                var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-                $('#logMessages').append('<label>startPosition: ' + startPosition + '</label></br>');
-
-                var mapOptions = {
-                    zoom: 7,
-                    center: startPosition
-                };
-
-                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-                directionsDisplay.setMap(map);
-                var request = {
-                    origin: startPosition,
-                    destination: sessionStorage.place,
-                    travelMode: google.maps.TravelMode.DRIVING
-                };
-                directionsService.route(request, function (response, status) {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    } else {
-                        alert('Error getting route');
-                    }
-                });
-            };
-
-            function onError(error) {
-                alert('code: ' + error.code + '\n' +
-                      'message: ' + error.message + '\n');
-                $('#logMessages').append('<label>Error getting current position' + error.code + error.message + '</label></br>');
-            }
-
-            var directionsDisplay;
-            var directionsService = new google.maps.DirectionsService();
-            var map;
-
-            var panoramaOptions = {
-                pano: 'rEQIKH3RXo4AAAGusnEkNQ',
-                pov: {
-                    heading: 360,
-                    pitch: 10
-                }
-            };
-
-            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
-
-        });
-
-        //document.addEventListener('deviceready', function () {
-        //    try {                
-        //        //alert('Device is ready!');
-                
-        //    } catch (e) {
-        //        alert(e);
-        //    }
-        //}, false);
+        }, false);
     </script>
 </body>
 </html>
