@@ -282,10 +282,6 @@
     </div>
 
 
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/jquery.mobile-1.4.2.min.js"></script>
-    <script src="js/jquery.swipebox.min.js"></script>
-
     <!-- cordova -->
     <script src="cordova.js"></script>
     <!-- cordova facebook plugin -->
@@ -293,39 +289,51 @@
     <!-- facebook js sdk -->
     <script src="facebook-js-sdk.js"></script>
 
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="js/jquery.swipebox.min.js"></script>
+
+
     <script>
-        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
-            alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-            document.getElementById('loading').style.display = 'none';
-        }
-        if (typeof CDV == 'undefined') {
-            alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-            document.getElementById('loading').style.display = 'none';
-        }
-        if (typeof FB == 'undefined') {
-            alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-            document.getElementById('loading').style.display = 'none';
-        }
-
-        document.getElementById('loading').style.display = 'block';
-        document.getElementById('MainPageContent').style.minHeight = 'inherit';
-        FB.init({
-            appId: '924651857553242',
-            nativeInterface: CDV.FB,
-            useCachedDialogs: false,
-            cookie: true,
-            xfbml: true,
-            version: 'v2.1'
-        });
-
-        FB.getLoginStatus(function (response) {
-            alert('Getting login status');
-            if (response.status === "connected") {
-                getUserInfo();
-            }
-            document.getElementById('loading').style.display = 'none';
-        });
+        
         $(function () {
+
+            if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
+                alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+                //document.getElementById('loading').style.display = 'none';
+                $('#loading').hide();
+            }
+            if (typeof CDV == 'undefined') {
+                alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+               // document.getElementById('loading').style.display = 'none';
+                $('#loading').hide();
+            }
+            if (typeof FB == 'undefined') {
+                alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+               // document.getElementById('loading').style.display = 'none';
+                $('#loading').hide();
+            }
+
+            //document.getElementById('loading').style.display = 'block';
+            document.getElementById('MainPageContent').style.minHeight = 'inherit';
+            FB.init({
+                appId: '924651857553242',
+                nativeInterface: CDV.FB,
+                useCachedDialogs: false,
+                cookie: true,
+                xfbml: true,
+                version: 'v2.1'
+            });
+
+            FB.getLoginStatus(function (response) {
+                alert('Getting FB login status');
+                if (response.status === "connected") {
+                    getUserInfo();
+                }
+               $('#loading').hide();
+            });
+
+
             function fbLogin() {
                 $('#loading').show();
                 FB.login(function (response) {
