@@ -1,151 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
-
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>    
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/jquery.mobile-1.4.2.min.js"></script>
-    <script src="js/jquery.swipebox.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">    
     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/swipebox.min.css" />
+    <link href="zocial/css/zocial.css" rel="stylesheet" />
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    
 
     <title>Tour App</title>
-    <script type="text/javascript">
-        $(function () {          
-            $('.swipebox').swipebox();
-
-            $('.ui-grid-a a').click(function () {
-                debugger
-                if ($(this).attr('data-place') === 'TajMahal') {
-                    sessionStorage.panoid = 'rEQIKH3RXo4AAAGusnEkNQ';
-                    sessionStorage.place = 'Taj Mahal, Agra India';
-                } else if ($(this).attr('data-place') === 'LotusTemple') {
-                    sessionStorage.panoid = 'WdBZGlAP9jwAAAGu41fwjQ';
-                    sessionStorage.place = 'Lotus Temple, New Delhi India';
-                } else if ($(this).attr('data-place') === 'QutubMinar') {
-                    sessionStorage.panoid = 'qGe1pZh1hMYAAAAGOoSngA';
-                    sessionStorage.place = 'Qutub Minar, New Delhi India';
-                } else if ($(this).attr('data-place') === 'JamaMasjid') {
-                    sessionStorage.panoid = 'jtGqAJ9PkhcAAAAGOr7mCQ';
-                    sessionStorage.place = 'Jama Masjid, New Delhi India';
-                } else if ($(this).attr('data-place') === 'HumayunTomb') {
-                    sessionStorage.panoid = 'Px7UKtIDgh4AAAQDMaGfRQ';
-                    sessionStorage.place = 'Humayun Tomb, New Delhi India';
-                }
-            });
-
-            $(document).on("pageshow", "#StreetView", function () {
-                debugger
-                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
-                panoramaOptions.pano = sessionStorage.panoid;
-                panorama.setPano(sessionStorage.panoid);
-                panorama.setVisible(true);
-            });
-
-            $(document).on("pageshow", "#Directions", function () {
-                if (directionsDisplay != null) {
-                    $('#map-canvas').html('');
-                    directionsDisplay.setMap(null);
-                    directionsDisplay = null;
-                }
-                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
-                $('#logMessages').html('');
-
-                $('#logMessages').append('<label>Directions page shown</label></br>');
-
-                if (navigator.geolocation) {
-                    $('#logMessages').append('<label>navigator.geolocation is supported</label></br>');
-                    navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true });
-                } else {
-                    $('#logMessages').append('navigator.geolocation not supported</label></br>');
-                }
-            });
-
-            $(document).on("swiperight", "#main", function (e) {
-                alert('finger swiped ' + e.type);
-                if ($(".ui-page-active").jqmData("panel") !== "open") {
-                    alert('panel is closed');
-                    if (e.type === "swiperight") {
-                        alert('opening panel');
-                        $("#revealPanel").panel("open");
-                    }
-                }
-            });
-
-            $("#loginPopup").on({
-                popupbeforeposition: function () {
-                    $('#MainPageContent').css('min-height', 'inherit');
-                    var h = $(window).height() - 150;
-                    var w = $(window).width() - 100;
-                    $("#loginPopup").css("height", h);
-                    $("#loginPopup").css("width", w);
-                }
-            });
-
-            $("#ReviewPopup").on({
-                popupbeforeposition: function () {
-                    var w = $(window).width() - 100;
-                    $("#ReviewPopup").css("width", w);
-                }
-            });
-
-            var onSuccess = function (position) {
-
-                $('#logMessages').append('<label>latitude: ' + position.coords.latitude + '</label></br>');
-                $('#logMessages').append('<label>longitude: ' + position.coords.longitude + '</label></br>');
-
-                directionsDisplay = new google.maps.DirectionsRenderer();
-
-                var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-                $('#logMessages').append('<label>startPosition: ' + startPosition + '</label></br>');
-
-                var mapOptions = {
-                    zoom: 7,
-                    center: startPosition
-                };
-
-                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-                directionsDisplay.setMap(map);
-                var request = {
-                    origin: startPosition,
-                    destination: sessionStorage.place,
-                    travelMode: google.maps.TravelMode.DRIVING
-                };
-                directionsService.route(request, function (response, status) {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    } else {
-                        alert('Error getting route');
-                    }
-                });
-            };
-
-            function onError(error) {
-                alert('code: ' + error.code + '\n' +
-                      'message: ' + error.message + '\n');
-                $('#logMessages').append('<label>Error getting current position' + error.code + error.message + '</label></br>');
-            }
-
-            var directionsDisplay;
-            var directionsService = new google.maps.DirectionsService();
-            var map;
-
-            var panoramaOptions = {
-                pano: 'rEQIKH3RXo4AAAGusnEkNQ',
-                pov: {
-                    heading: 360,
-                    pitch: 10
-                }
-            };
-
-            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
-
-        });
-
-    </script>
+    <!--<script type="text/javascript">        
+    </script>-->
 
     <style>
         #main { position: relative; }
@@ -180,11 +47,11 @@
         #map-canvas {
             background: transparent url(images/ajax-loading.gif) no-repeat center center;
         }
-        .box {
+        /*.box {
             list-style-type: none;
             float: left;
             margin: 10px 10px;
-        }
+        }*/
 
         .ui-block-a, .ui-block-b {
             text-align: center;
@@ -232,9 +99,9 @@
         }
     </style>
 </head>
-<body>
-    <div data-role="page" id="main">
-        <div id="loading"></div>
+<body ng-app="TouristApp">
+    <div data-role="page" id="main" ng-controller="placesCntrler">
+        <div id="loading" style="display:none"></div>
         <div data-role="panel" id="revealPanel" data-display="reveal">
             <div id="Panelloader"></div>
             <div style="text-align:center;text-shadow:none">
@@ -247,8 +114,8 @@
             </div>
         </div>
 
-        <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;">
-            <a href="#loginPopup" id="loginButton" data-rel="popup" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window">Login</a>
+        <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:46px">
+            <a data-target="#loginModal" role=button data-toggle="modal" id="loginButton" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window">Login</a>
             <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;display:none"></a>
 
             <h1>New Delhi</h1>
@@ -256,42 +123,18 @@
         </div>
 
         <div data-role="main" class="ui-content" style="min-height:inherit" id="MainPageContent">
-            <div class="ui-grid-a">
-                <div class="ui-block-a">
-                    <a href="#Options" data-place="LotusTemple">
-                        <img src="images/LotusTemple.jpg" class="ui-corner-all ui-shadow" />
-                        <figcaption style="text-align: center">Lotus Temple</figcaption>
-                    </a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4" ng-repeat="place in places" style="text-align: center;margin-bottom:20px">
+                        <a href="#Options" data-place={{place.name}} ng-click="setPanoID()">
+                            <figure>
+                                <img ng-src="{{place.imgSrc}}" style="width:100%" class="ui-corner-all ui-shadow" />
+                                <figcaption style="text-align: center">{{place.name}}</figcaption>
+                            </figure>
+                        </a>
+                    </div>
                 </div>
-                <div class="ui-block-b">
-                    <a href="#Options" data-place="QutubMinar">
-                        <img src="images/QutubMinar.jpg" class="ui-corner-all ui-shadow" />
-                        <figcaption style="text-align: center">Qutub Minar</figcaption>
-                    </a>
-                </div>
-                <div class="ui-block-a">
-                    <a href="#Options" data-place="JamaMasjid">
-                        <img src="images/JamaMasjid.jpg" class="ui-corner-all ui-shadow" />
-                        <figcaption style="text-align: center">Jama Masjid</figcaption>
-                    </a>
-                </div>
-                <div class="ui-block-b">
-                    <a href="#Options" data-place="HumayunTomb">
-                        <img src="images/HumayunTomb.jpg" class="ui-corner-all ui-shadow" />
-                        <figcaption style="text-align: center">Humayun Tomb</figcaption>
-                    </a>
-                </div>
-            </div>
-
-            <div data-role="popup" id="loginPopup" class="ui-content">
-                <a href="#main" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-                <!--<h2 style="text-align:center">Login With Facebook</h2>-->
-                <div style="text-align:center;width:100%">
-                    <button class="fbButton" onclick="fbLogin()"></button>
-                </div>
-                <!--<div style="width:100%;text-align:center;margin-top:2%" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" data-scope="public_profile,email" onlogin="getUserInfo();"></div>-->
-                <div id="fb-root"></div>
-            </div>
+            </div>            
         </div>
     </div>
 
@@ -414,34 +257,136 @@
         </div>
     </div>
 
-
-    <!-- cordova -->
-    <script src="cordova.js"></script>
-    <!-- cordova facebook plugin -->
+    
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">        
+        <div class="modal-dialog">            
+            <div class="modal-content  center">                
+                <div class="modal-header" style="border-bottom:0px">                    
+                    <!--<a role=button data-dismiss="modal" aria-hidden="true" class="close ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>-->
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>                    
+                </div>
+                <div class="modal-body" style="padding-bottom:0px">
+                    <div class=box>
+                        <div class=content>
+                            <div class=error style="margin-bottom:10px">
+                                <h5 style="color:red;margin:0"></h5>
+                            </div>
+                            <div class="form loginBox" style="display: block;">
+                                <form class="push-down-15" id="loginform" method="post" style="text-align:center" ng-submit="loginformSubmit()">
+                                    <div class="form-group">
+                                        <span style="float:left;margin:9px 0px;width:5%" class="glyphicon glyphicon-user"></span><input style="width:95%" name="username" ng-model="loginformData.username" id="username" type="email" class="form-control  form-control--contact" placeholder="Username/Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="float:left;margin:9px 0px;width:5%" class="glyphicon glyphicon-lock"></span><input name="password" ng-model="loginformData.password" style="width:95%" id="password" type="password" class="form-control  form-control--contact" placeholder="Password">
+                                    </div>
+                                    <button type="submit" class="btn  btn-warning" style="background-color: slateblue;border-color: slateblue;">Log In</button>
+                                </form>
+                                <div style="display:block;text-align:center">
+                                    <label style="margin-top:10px">Or</label>                                    
+                                    <button class="zocial facebook" onclick="fbLogin()">Login with Facebook</button><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=box>
+                        <div class="content forgotBox" style="display: none;">
+                            <div class=frgtPassError style="margin-bottom:10px">
+                                <h5 style="color:red;margin:0"></h5>
+                            </div>
+                            <div class="form">
+                                <p>Please enter your e-mail address &amp; we will send you a confirmation mail to reset your password.</p>
+                                <form method=post id="forgotPassword" ng-submit="frgtPassformSubmit()" style="text-align:center">
+                                    <input class=form-control type=email placeholder=Email name=email ng-model="frgtPassformData.email">
+                                    <input class="btn  btn-warning" type=submit value="SEND MY DETAILS!" name=commit style="background-color: slateblue;border-color: slateblue;margin-top:10px">
+                                </form>
+                            </div>
+                            <div id=message style=display:none>
+                                <p>
+                                    An email is sent to your email address.<br /> Please check your email for resetting your password.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=box>
+                        <div class="content registerBox" style="display: none;">                            
+                            <div class="form">
+                                <form class="push-down-15" id="loginform" method="post" style="text-align:center" ng-submit="loginformSubmit()">
+                                    <div class="form-group">
+                                        <span style="float:left;margin:9px 0px;width:5%" class="glyphicon glyphicon-user"></span><input style="width:95%" name="username" ng-model="loginformData.username" id="username" type="email" class="form-control  form-control--contact" placeholder="Username/Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="float:left;margin:9px 0px;width:5%" class="glyphicon glyphicon-lock"></span><input name="password" ng-model="loginformData.password" style="width:95%" id="password" type="password" class="form-control  form-control--contact" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="float:left;margin:9px 0px;width:5%" class="glyphicon glyphicon-lock"></span><input name="password" ng-model="loginformData.password" style="width:95%" id="password" type="password" class="form-control  form-control--contact" placeholder="Confirm Password">
+                                    </div>
+                                    <button type="submit" class="btn  btn-warning" style="background-color: slateblue;border-color: slateblue;">Sign Up</button>
+                                </form>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class=modal-footer style="border-top:0px">
+                    <div class="forgot login-footer" style="display: block;">
+                        <span style="float:left;font-weight: bold;color: tomato;text-shadow: none;">New User ?</span><br />
+                        <span> <a href="javascript: showRegisterForm();" style="float:left"> Register Here.</a></span>
+                        <span><a href="javascript: showForgotForm();">Forgot your Password?</a></span>
+                    </div>
+                    <div class="forgot register-footer" style="display: none;">
+                        <a href="javascript: showLoginForm();">Back to Login</a>
+                    </div>
+                    <div class="forgot forgot-footer" style="display: none;">
+                        <a href="javascript: showLoginForm();">AAH, WAIT, I REMEMBER NOW!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="js/jquery.swipebox.min.js"></script>
+    <script src="js/mainMin.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/events.js"></script>
+    
+    <!--<script src="cordova.js"></script>
+    
     <script src="cdv-plugin-fb-connect.js"></script>
-    <!-- facebook js sdk -->
-    <script src="facebook-js-sdk.js"></script>
+    
+    <script src="facebook-js-sdk.js"></script>-->
 
     <script>
-        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
-            alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-            document.getElementById('loading').style.display = 'none';            
-        }
-        if (typeof CDV == 'undefined') {
-            alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-            document.getElementById('loading').style.display = 'none';            
-        }
-        if (typeof FB == 'undefined') {
-            alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+        if ((typeof google == 'undefined')) {
+            alert('Google variable does not exist. Check that you are connected to internet connection');
             document.getElementById('loading').style.display = 'none';
-        }        
+        }
 
-        document.addEventListener('deviceready', function () {
+        //if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
+        //    alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+        //    document.getElementById('loading').style.display = 'none';            
+        //}
+        //if (typeof CDV == 'undefined') {
+        //    alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+        //    document.getElementById('loading').style.display = 'none';            
+        //}
+        //if (typeof FB == 'undefined') {
+        //    alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+        //    document.getElementById('loading').style.display = 'none';
+        //}        
+
+        document.addEventListener('deviceready', onDeviceReady, false);
+        document.addEventListener("offline", onOffline, false);
+        document.addEventListener("online", onOnline, false);
+
+        function onDeviceReady() {
             try {
                 console.log('Device is ready!');
                 document.getElementById('loading').style.display = 'block';
                 document.getElementById('MainPageContent').style.minHeight = 'inherit';
-                $('#MainPageContent').css('min-height','inherit');
+                $('#MainPageContent').css('min-height', 'inherit');
+
                 FB.init({
                     appId: '924651857553242',
                     nativeInterface: CDV.FB,
@@ -450,7 +395,9 @@
                     xfbml: true,
                     version: 'v2.1'
                 });
+
                 $('#MainPageContent').css('min-height', 'inherit');
+
                 FB.getLoginStatus(function (response) {
                     if (response.status === "connected") {
                         getUserInfo();
@@ -458,10 +405,27 @@
                     $('#loading').hide();
                 });
 
+                checkConnection();
             } catch (e) {
                 alert(e);
             }
-        }, false);
+        }
+
+        function checkConnection() {
+            var networkState = navigator.connection.type;
+            debugger
+            var states = {};
+            states[Connection.UNKNOWN] = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI] = 'WiFi connection';
+            states[Connection.CELL_2G] = 'Cell 2G connection';
+            states[Connection.CELL_3G] = 'Cell 3G connection';
+            states[Connection.CELL_4G] = 'Cell 4G connection';
+            states[Connection.CELL] = 'Cell generic connection';
+            states[Connection.NONE] = 'No network connection';
+
+            alert('Connection type: ' + states[networkState]);
+        }
 
         function fbLogin() {
             $('#loading').show();
@@ -506,6 +470,104 @@
             });
         }
 
+        function onOffline() {
+            var networkState = navigator.connection.type;
+            alert("You are not connected to the Internet. "+networkState);
+        }
+
+        function onOnline() {
+            var networkState = navigator.connection.type;
+            alert("You are connected to the Internet. " + networkState);
+            debugger
+        }
+
+        
+            //$('#loading').hide();
+            var directionsDisplay;
+            var directionsService = new google.maps.DirectionsService();
+            var map;
+            var panoramaOptions = {
+                pano: 'rEQIKH3RXo4AAAGusnEkNQ',
+                pov: {
+                    heading: 360,
+                    pitch: 10
+                }
+            };
+            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+
+            $(document).on("pageshow", "#StreetView", function () {
+                debugger
+                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
+                panoramaOptions.pano = sessionStorage.panoid;
+                panorama.setPano(sessionStorage.panoid);
+                panorama.setVisible(true);
+            });
+
+            $(document).on("pageshow", "#Directions", function () {
+                if (directionsDisplay != null) {
+                    $('#map-canvas').html('');
+                    directionsDisplay.setMap(null);
+                    directionsDisplay = null;
+                }
+                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true });
+                } else {                    
+                    alert('Please enable your location service.');
+                }
+            });
+
+            $(document).on("swiperight", "#main", function (e) {
+                alert('finger swiped ' + e.type);
+                if ($(".ui-page-active").jqmData("panel") !== "open") {
+                    alert('panel is closed');
+                    if (e.type === "swiperight") {
+                        alert('opening panel');
+                        $("#revealPanel").panel("open");
+                    }
+                }
+            });
+
+            $("#ReviewPopup").on({
+                popupbeforeposition: function () {
+                    var w = $(window).width() - 100;
+                    $("#ReviewPopup").css("width", w);
+                }
+            });
+
+            var onSuccess = function (position) {
+                directionsDisplay = new google.maps.DirectionsRenderer();
+
+                var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                var mapOptions = {
+                    zoom: 7,
+                    center: startPosition
+                };
+
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+                directionsDisplay.setMap(map);
+                var request = {
+                    origin: startPosition,
+                    destination: sessionStorage.place,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function (response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        alert('Error getting route');
+                    }
+                });
+            };
+
+            function onError(error) {
+                alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');                
+            }
+            $('.swipebox').swipebox();
+       
     </script>
 </body>
 </html>

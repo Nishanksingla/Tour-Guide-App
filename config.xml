@@ -65,7 +65,7 @@
     <param name="APP_ID" value="924651857553242" />
     <param name="APP_NAME" value="newTestApp" />
   </gap:plugin>
-  
+  <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
   <gap:config-file platform="android" parent="/manifest">
 	<supports-screens 
         android:xlargeScreens="false" 
