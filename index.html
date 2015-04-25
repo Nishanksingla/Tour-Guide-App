@@ -279,7 +279,7 @@
                                     <div class="form-group">
                                         <span style="float:left;margin:9px 0px;width:5%" class="glyphicon glyphicon-lock"></span><input name="password" ng-model="loginformData.password" style="width:95%" id="password" type="password" class="form-control  form-control--contact" placeholder="Password">
                                     </div>
-                                    <button type="submit" class="btn  btn-warning" style="background-color: slateblue;border-color: slateblue;">Log In</button>
+                                    <button type="submit" class="btn  btn-warning" style="background-color: rgb(85, 110, 180);border-color: transparent;box-shadow: 2px 2px 2px 0px rgb(51, 71, 125);font-weight: bold;">Log In</button>
                                 </form>
                                 <div style="display:block;text-align:center">
                                     <label style="margin-top:10px">Or</label>                                    
@@ -297,7 +297,7 @@
                                 <p>Please enter your e-mail address &amp; we will send you a confirmation mail to reset your password.</p>
                                 <form method=post id="forgotPassword" ng-submit="frgtPassformSubmit()" style="text-align:center">
                                     <input class=form-control type=email placeholder=Email name=email ng-model="frgtPassformData.email">
-                                    <input class="btn  btn-warning" type=submit value="SEND MY DETAILS!" name=commit style="background-color: slateblue;border-color: slateblue;margin-top:10px">
+                                    <input class="btn  btn-warning" type=submit value="SEND MY DETAILS!" name=commit style="  background-color: rgb(85, 110, 180);border-color: transparent;box-shadow: 2px 2px 2px 0px rgb(51, 71, 125);font-weight: bold;margin-top:10px">                                
                                 </form>
                             </div>
                             <div id=message style=display:none>
@@ -320,7 +320,7 @@
                                     <div class="form-group">
                                         <span style="float:left;margin:9px 0px;width:5%" class="glyphicon glyphicon-lock"></span><input name="password" ng-model="loginformData.password" style="width:95%" id="password" type="password" class="form-control  form-control--contact" placeholder="Confirm Password">
                                     </div>
-                                    <button type="submit" class="btn  btn-warning" style="background-color: slateblue;border-color: slateblue;">Sign Up</button>
+                                    <button type="submit" class="btn  btn-warning" style="  background-color: rgb(85, 110, 180);border-color: transparent;box-shadow: 2px 2px 2px 0px rgb(51, 71, 125);font-weight: bold;">Sign Up</button>
                                 </form>
                             </div>                            
                         </div>
@@ -328,7 +328,7 @@
                 </div>
                 <div class=modal-footer style="border-top:0px">
                     <div class="forgot login-footer" style="display: block;">
-                        <span style="float:left;font-weight: bold;color: tomato;text-shadow: none;">New User ?</span><br />
+                        <span style="float:left;color: coral;text-shadow: none;">New User ?</span><br />
                         <span> <a href="javascript: showRegisterForm();" style="float:left"> Register Here.</a></span>
                         <span><a href="javascript: showForgotForm();">Forgot your Password?</a></span>
                     </div>
@@ -351,11 +351,11 @@
     <script src="js/angular.min.js"></script>
     <script src="js/events.js"></script>
     
-    <!--<script src="cordova.js"></script>
+    <script src="cordova.js"></script>
     
     <script src="cdv-plugin-fb-connect.js"></script>
     
-    <script src="facebook-js-sdk.js"></script>-->
+    <script src="facebook-js-sdk.js"></script>
 
     <script>
         if ((typeof google == 'undefined')) {
@@ -363,18 +363,18 @@
             document.getElementById('loading').style.display = 'none';
         }
 
-        //if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
-        //    alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-        //    document.getElementById('loading').style.display = 'none';            
-        //}
-        //if (typeof CDV == 'undefined') {
-        //    alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-        //    document.getElementById('loading').style.display = 'none';            
-        //}
-        //if (typeof FB == 'undefined') {
-        //    alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-        //    document.getElementById('loading').style.display = 'none';
-        //}        
+        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
+            alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+            document.getElementById('loading').style.display = 'none';            
+        }
+        if (typeof CDV == 'undefined') {
+            alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+            document.getElementById('loading').style.display = 'none';            
+        }
+        if (typeof FB == 'undefined') {
+            alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+            document.getElementById('loading').style.display = 'none';
+        }        
 
         document.addEventListener('deviceready', onDeviceReady, false);
         document.addEventListener("offline", onOffline, false);
