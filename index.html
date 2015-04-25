@@ -445,7 +445,7 @@
                 }
                 $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
 
-                var geolocationOptions={ maximumAge: 3000, timeout: 8000, enableHighAccuracy: true };
+                var geolocationOptions={ maximumAge: 3000, timeout: 60000, enableHighAccuracy: true };
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, geolocationOptions);
                 } else {                    
@@ -485,7 +485,7 @@
 
             function geolocationError(PositionError) {
                 alert('Please enable your location services ' + JSON.stringify(PositionError));
-                $.mobile.navigate("#bar");
+                $.mobile.navigate("#Options");
                 window.history.back();
             }
 
