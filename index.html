@@ -58,7 +58,7 @@
             <a data-target="#loginModal" role=button data-toggle="modal" id="loginButton" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window">Login</a>
             <a href="#revealPanel" id="panelButton" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;display:none"></a>
 
-            <h1>New Delhi</h1>
+            <h1 style="font-weight:bold;font-size:1.2em">Delhi</h1>
             <a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>
         </div>
 
@@ -386,13 +386,7 @@
                 $('#FBprofileimage').attr('src', response.data.url);
                 $('#panelButton').show();
                 $('#loginButton').hide();
-                $('#loginModal').modal('hide')
-                //if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
-                //    console.log('Pop Up is open');
-                //    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
-                //    $('#loginPopup-screen').addClass('ui-screen-hidden');
-                //    $('#loginPopup').popup("close");
-                //}
+                $('#loginModal').modal('hide');
                 $('#loading').hide();
                 $('#Panelloader').hide();
             });
@@ -403,11 +397,11 @@
             alert('Logging Out..');
             console.log('Logging out..');
             FB.logout(function (response) {
-                $('a[href="#loginPopup"]').show();
-                $('a[href="#revealPanel"]').hide();
+                $('#panelButton').hide();
+                $('#loginButton').show();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
-               // $('#loading').hide();
+               
             });
         }
 
@@ -451,7 +445,7 @@
                 }
                 $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
 
-                var geolocationOptions={ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true };
+                var geolocationOptions={ maximumAge: 3000, timeout: 8000, enableHighAccuracy: true };
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, geolocationOptions);
                 } else {                    
@@ -490,7 +484,9 @@
             };
 
             function geolocationError(PositionError) {
-                alert('Please enable your location services '+PositionError);
+                alert('Please enable your location services ' + JSON.stringify(PositionError));
+                $.mobile.navigate("#bar");
+                window.history.back();
             }
 
 
