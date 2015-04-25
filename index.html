@@ -28,76 +28,16 @@
             left:0;
             background-color: lightgrey;            
         }
-        .fbButton {
-            width:200px !important;
-            padding:0 !important;
-            height:40px !important;
-            border-radius:0 0 !important;
-            background:url(images/facebook.png) no-repeat center;
-            height:100%;
-            background-color:transparent !important;
-            border:none;
-            box-shadow:none;
-            display:block;
-            margin:0 auto
-        }
+        
         .ui-popup-screen {
             background-color:gray;
         }
         #map-canvas {
             background: transparent url(images/ajax-loading.gif) no-repeat center center;
         }
-        /*.box {
-            list-style-type: none;
-            float: left;
-            margin: 10px 10px;
-        }*/
+        
 
-        .ui-block-a, .ui-block-b {
-            text-align: center;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-
-        .ui-grid-a img {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Smartphones (portrait and landscape) ----------- */
-
-        @media only screen and (min-device-width : 320px) and (orientation : portrait) {
-            .ui-block-a, .ui-block-b {
-                height: 120px;
-            }
-        }
-        @media only screen and (min-device-width : 320px) and (orientation : landscape) {
-            .ui-block-a, .ui-block-b {
-                height: 180px;
-            }
-        }
-
-        /* iPads (portrait and landscape) ----------- */
-        @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-            .ui-block-a, .ui-block-b {
-                height: 250px;
-            }
-        }
-
-        /* Desktops and laptops ----------- */
-        @media only screen and (min-width : 1224px) {
-            .ui-block-a, .ui-block-b {
-                height: 350px;
-            }
-        }
-
-        /* Large screens ----------- */
-        @media only screen and (min-width : 1824px) {
-            .ui-block-a, .ui-block-b {
-                height: 350px;
-            }
-        }
-    </style>
+            </style>
 </head>
 <body ng-app="TouristApp">
     <div data-role="page" id="main" ng-controller="placesCntrler">
@@ -116,7 +56,7 @@
 
         <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:46px">
             <a data-target="#loginModal" role=button data-toggle="modal" id="loginButton" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window">Login</a>
-            <a href="#revealPanel" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;display:none"></a>
+            <a href="#revealPanel" id="panelButton" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;display:none"></a>
 
             <h1>New Delhi</h1>
             <a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>
@@ -378,7 +318,7 @@
 
         document.addEventListener('deviceready', onDeviceReady, false);
         document.addEventListener("offline", onOffline, false);
-        document.addEventListener("online", onOnline, false);
+        //document.addEventListener("online", onOnline, false);
 
         function onDeviceReady() {
             try {
@@ -444,14 +384,15 @@
             });
             FB.api('/me/picture', { "type": "large" }, function (response) {
                 $('#FBprofileimage').attr('src', response.data.url);
-                $('a[href="#revealPanel"]').show();
-                $('a[href="#loginPopup"]').hide();
-                if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
-                    console.log('Pop Up is open');
-                    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
-                    $('#loginPopup-screen').addClass('ui-screen-hidden');
-                    $('#loginPopup').popup("close");
-                }
+                $('#panelButton').show();
+                $('#loginButton').hide();
+                $('#loginModal').modal('hide')
+                //if ($('#loginPopup').parent().hasClass('ui-popup-active')) {
+                //    console.log('Pop Up is open');
+                //    $('#loginPopup-popup').removeClass('ui-popup-active').addClass('ui-popup-hidden');
+                //    $('#loginPopup-screen').addClass('ui-screen-hidden');
+                //    $('#loginPopup').popup("close");
+                //}
                 $('#loading').hide();
                 $('#Panelloader').hide();
             });
@@ -470,16 +411,15 @@
             });
         }
 
-        function onOffline() {
-            var networkState = navigator.connection.type;
-            alert("You are not connected to the Internet. "+networkState);
+        function onOffline() {            
+            alert("You are not connected to the Internet. ");
         }
 
-        function onOnline() {
-            var networkState = navigator.connection.type;
-            alert("You are connected to the Internet. " + networkState);
-            debugger
-        }
+        //function onOnline() {
+        //    var networkState = navigator.connection.type;
+        //    alert("You are connected to the Internet. " + networkState);
+        //    debugger
+        //}
 
         
             //$('#loading').hide();
@@ -511,35 +451,21 @@
                 }
                 $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
 
+                var geolocationOptions={ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true };
                 if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true });
+                    navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, geolocationOptions);
                 } else {                    
                     alert('Please enable your location service.');
                 }
             });
+            
+            
+            
 
-            $(document).on("swiperight", "#main", function (e) {
-                alert('finger swiped ' + e.type);
-                if ($(".ui-page-active").jqmData("panel") !== "open") {
-                    alert('panel is closed');
-                    if (e.type === "swiperight") {
-                        alert('opening panel');
-                        $("#revealPanel").panel("open");
-                    }
-                }
-            });
-
-            $("#ReviewPopup").on({
-                popupbeforeposition: function () {
-                    var w = $(window).width() - 100;
-                    $("#ReviewPopup").css("width", w);
-                }
-            });
-
-            var onSuccess = function (position) {
+            var geolocationSuccess = function (Position) {
                 directionsDisplay = new google.maps.DirectionsRenderer();
 
-                var startPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var startPosition = new google.maps.LatLng(Position.coords.latitude, Position.coords.longitude);
 
                 var mapOptions = {
                     zoom: 7,
@@ -563,9 +489,29 @@
                 });
             };
 
-            function onError(error) {
-                alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');                
+            function geolocationError(PositionError) {
+                alert('Please enable your location services '+PositionError);
             }
+
+
+            $(document).on("swiperight", "#main", function (e) {
+                alert('finger swiped ' + e.type);
+                if ($(".ui-page-active").jqmData("panel") !== "open") {
+                    alert('panel is closed');
+                    if (e.type === "swiperight") {
+                        alert('opening panel');
+                        $("#revealPanel").panel("open");
+                    }
+                }
+            });
+
+            $("#ReviewPopup").on({
+                popupbeforeposition: function () {
+                    var w = $(window).width() - 100;
+                    $("#ReviewPopup").css("width", w);
+                }
+            });
+
             $('.swipebox').swipebox();
        
     </script>
