@@ -39,7 +39,7 @@
 
             </style>
 </head>
-<body ng-app="TouristApp" ng-controller="placesCntrler">
+<body ng-app="TouristApp" ng-controller="mainCntrler">
     <div data-role="page" id="main">
         <div id="loading" style="display:none"></div>
         <div data-role="panel" id="revealPanel" data-display="reveal">
@@ -49,12 +49,12 @@
                 <label id="FBusername" style="font-size:1.2em"></label>
                 <label id="email" style="font-size: .8em;"></label>
             </div>
-            <div style="padding: 10px;border-top: 1px solid lightgrey;border-bottom: 1px solid lightgray;">
-                <a href="#PhotoAlbum" style="position: relative;text-decoration:none;display:block">
+            <div style="border-bottom: 1px solid lightgray;">
+                <a href="#PhotoAlbum" style="position: relative;text-decoration:none;display:block;padding:5px 0px;  font-size: 1.1em;border-top: 1px solid lightgrey;">
                     <span class="glyphicon glyphicon-picture"></span> Photo Album
                 </a>
                 <!--class="ui-btn-icon-left ui-icon-power"-->
-                <a href="#main" style="position: relative;text-decoration:none;display:block" onclick="logout()">
+                <a href="#main" style="position: relative;text-decoration:none;display:block;padding:5px 0px;  font-size: 1.1em;border-top: 1px solid lightgrey;" onclick="logout()">
                     <span class="glyphicon glyphicon-off"></span> Log Out
                 </a>
             </div>
@@ -62,10 +62,13 @@
 
         <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:46px">
             <a data-target="#loginModal" role=button data-toggle="modal" id="loginButton" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window">Login</a>
-            <a href="#revealPanel" id="panelButton" style="background-color:transparent;border:0;display:none;color:white;text-shadow:none;box-shadow:none"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <a href="#revealPanel" class="panelButton" style="background-color:transparent;border:0;display:none;color:white;text-shadow:none;box-shadow:none;position:relative;float:left">
+                <span class=" glyphicon glyphicon-menu-hamburger">
+                </span>
+            </a>
             <!--class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext"-->
             <h1 style="font-weight:bold;font-size:1.2em">Delhi</h1>
-            <a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>
+            <!--<a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>-->
         </div>
 
         <div data-role="main" class="ui-content" style="min-height:inherit" id="MainPageContent">
@@ -84,31 +87,38 @@
         </div>
     </div>
 
-    <div data-role="page" id="PhotoAlbum">
-        <div data-role="panel" id="revealPanel" data-display="reveal">
+    <div data-role="page" id="PhotoAlbum" style="height:inherit">
+        <div data-role="panel" id="PhotoAlbumPanel" data-display="reveal">
             <div id="Panelloader"></div>
             <div style="text-align:center;text-shadow:none">
                 <img id="FBprofileimage" style="border-radius: 50%;height:100px" />
                 <label id="FBusername" style="font-size:1.2em"></label>
                 <label id="email" style="font-size: .8em;"></label>
             </div>
-            <div style="padding: 10px;border-top: 1px solid lightgrey;border-bottom: 1px solid lightgray;">
-                <a href="#PhotoAlbum" style="position: relative;text-decoration:none;display:block">
+            <div style="border-bottom: 1px solid lightgray;">
+                <a href="#PhotoAlbum" style="position: relative;text-decoration:none;display:block;padding:5px 0px;  font-size: 1.1em;border-top: 1px solid lightgrey;">
                     <span class="glyphicon glyphicon-picture"></span> Photo Album
                 </a>
                 <!--class="ui-btn-icon-left ui-icon-power"-->
-                <a href="#main" style="position: relative;text-decoration:none;display:block" onclick="logout()">
+                <a href="#main" style="position: relative;text-decoration:none;display:block;padding:5px 0px;  font-size: 1.1em;border-top: 1px solid lightgrey;" onclick="logout()">
                     <span class="glyphicon glyphicon-off"></span> Log Out
                 </a>
             </div>
         </div>
+        
         <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:46px">
-            <a href="#revealPanel" id="panelButton" style="background-color:transparent;border:0;color:white;text-shadow:none;box-shadow:none"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <a href="#PhotoAlbumPanel" class="panelButton" style="background-color:transparent;border:0;color:white;text-shadow:none;box-shadow:none">
+                <span class="glyphicon glyphicon-menu-hamburger">
+                </span>
+            </a>
             <h1 style="font-weight:bold;font-size:1.2em">Photo Album</h1>
-            <button class="ui-btn ui-btn-right ui-corner-all ui-shadow" style="background:transparent;border:0;box-shadow:none;width:auto;text-shadow:none" ng-click="clickPicture()"><span style="color:white" class="glyphicon glyphicon-camera"></span></button>
+            <button onclick="clickPicture()" class=" ui-btn ui-btn-right" style="background:transparent;border:0;box-shadow:none;width:auto;text-shadow:none">
+                <span style="color:white" class="glyphicon glyphicon-camera">
+                </span>
+            </button>
 
         </div>
-        <div data-role="main">
+        <div data-role="main" id="PhotoAlbumMain" style="min-height:inherit">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-sm-4" ng-repeat="imageSrc in imageSRCs">
@@ -384,7 +394,10 @@
                 });
 
                 $('#MainPageContent').css('min-height', 'inherit');
-
+                $('#PhotoAlbum').css('height', 'inherit');
+                $('#PhotoAlbumMain').css('min-height', 'inherit');
+                
+                
                 FB.getLoginStatus(function (response) {
                     if (response.status === "connected") {
                         getUserInfo();
@@ -431,7 +444,7 @@
             });
             FB.api('/me/picture', { "type": "large" }, function (response) {
                 $('#FBprofileimage').attr('src', response.data.url);
-                $('#panelButton').show();
+                $('.panelButton').show();
                 $('#loginButton').hide();
                 $('#loginModal').modal('hide');
                 $('#loading').hide();
@@ -444,7 +457,7 @@
             alert('Logging Out..');
             console.log('Logging out..');
             FB.logout(function (response) {
-                $('#panelButton').hide();
+                $('.panelButton').hide();
                 $('#loginButton').show();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
@@ -500,9 +513,6 @@
             }
         });
 
-
-
-
         var geolocationSuccess = function (Position) {
             directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -534,6 +544,21 @@
             alert('Please enable your location services ' + JSON.stringify(PositionError));
             //$.mobile.navigate("#Options");
             window.history.back();
+        }
+
+        var clickPicture = function () {
+            navigator.camera.getPicture(onSuccess, onFail, {
+                quality: 100,
+                destinationType: Camera.DestinationType.FILE_URI
+            });
+        }
+
+        function onSuccess(imageURI) {
+            $scope.imageSRCs.push(imageURI);
+        }
+
+        function onFail(message) {
+            alert('Failed because: ' + message);
         }
 
 
