@@ -72,7 +72,7 @@
         android:largeScreens="false" 
         android:smallScreens="false" />
 </gap:config-file>
-  
+  <gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
     <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 
     <gap:plugin name="com.phonegap.plugin.statusbar" />

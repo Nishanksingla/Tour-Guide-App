@@ -38,4 +38,21 @@
             sessionStorage.place = 'Humayun Tomb, New Delhi India';
         }
     }
+
+    $scope.clickPicture = function () {
+        navigator.camera.getPicture(onSuccess, onFail, {
+            quality: 100,
+            destinationType: Camera.DestinationType.FILE_URI
+        });
+    }
+
+    function onSuccess(imageURI) {
+        $scope.imageSRCs.push(imageURI);
+        
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+
 }]);

@@ -39,8 +39,8 @@
 
             </style>
 </head>
-<body ng-app="TouristApp">
-    <div data-role="page" id="main" ng-controller="placesCntrler">
+<body ng-app="TouristApp" ng-controller="placesCntrler">
+    <div data-role="page" id="main">
         <div id="loading" style="display:none"></div>
         <div data-role="panel" id="revealPanel" data-display="reveal">
             <div id="Panelloader"></div>
@@ -50,14 +50,20 @@
                 <label id="email" style="font-size: .8em;"></label>
             </div>
             <div style="padding: 10px;border-top: 1px solid lightgrey;border-bottom: 1px solid lightgray;">
-                <a href="#main" style="position: relative;text-decoration:none" class="ui-btn-icon-left ui-icon-power" onclick="logout()">Log Out</a>
+                <a href="#PhotoAlbum" style="position: relative;text-decoration:none;display:block">
+                    <span class="glyphicon glyphicon-picture"></span> Photo Album
+                </a>
+                <!--class="ui-btn-icon-left ui-icon-power"-->
+                <a href="#main" style="position: relative;text-decoration:none;display:block" onclick="logout()">
+                    <span class="glyphicon glyphicon-off"></span> Log Out
+                </a>
             </div>
         </div>
 
         <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:46px">
             <a data-target="#loginModal" role=button data-toggle="modal" id="loginButton" class="ui-btn ui-btn-left ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-user" data-position-to="window">Login</a>
-            <a href="#revealPanel" id="panelButton" class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext" style="background-color:transparent;border:0;display:none"></a>
-
+            <a href="#revealPanel" id="panelButton" style="background-color:transparent;border:0;display:none;color:white;text-shadow:none;box-shadow:none"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <!--class="ui-nodisc-icon ui-link ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext"-->
             <h1 style="font-weight:bold;font-size:1.2em">Delhi</h1>
             <a href="#" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">Search</a>
         </div>
@@ -74,7 +80,47 @@
                         </a>
                     </div>
                 </div>
-            </div>            
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="PhotoAlbum">
+        <div data-role="panel" id="revealPanel" data-display="reveal">
+            <div id="Panelloader"></div>
+            <div style="text-align:center;text-shadow:none">
+                <img id="FBprofileimage" style="border-radius: 50%;height:100px" />
+                <label id="FBusername" style="font-size:1.2em"></label>
+                <label id="email" style="font-size: .8em;"></label>
+            </div>
+            <div style="padding: 10px;border-top: 1px solid lightgrey;border-bottom: 1px solid lightgray;">
+                <a href="#PhotoAlbum" style="position: relative;text-decoration:none;display:block">
+                    <span class="glyphicon glyphicon-picture"></span> Photo Album
+                </a>
+                <!--class="ui-btn-icon-left ui-icon-power"-->
+                <a href="#main" style="position: relative;text-decoration:none;display:block" onclick="logout()">
+                    <span class="glyphicon glyphicon-off"></span> Log Out
+                </a>
+            </div>
+        </div>
+        <div data-role="header" data-position="fixed" style="background-color:skyblue;color:white;text-shadow:none;height:46px">
+            <a href="#revealPanel" id="panelButton" style="background-color:transparent;border:0;color:white;text-shadow:none;box-shadow:none"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <h1 style="font-weight:bold;font-size:1.2em">Photo Album</h1>
+            <button class="ui-btn ui-btn-right ui-corner-all ui-shadow" style="background:transparent;border:0;box-shadow:none;width:auto;text-shadow:none" ng-click="clickPicture()"><span style="color:white" class="glyphicon glyphicon-camera"></span></button>
+
+        </div>
+        <div data-role="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-sm-4" ng-repeat="imageSrc in imageSRCs">
+                        <img ng-src="{{imageSrc}}"/>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <a href="#main" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-back ui-btn-icon-left" data-transition="slide" data-direction="reverse">Back</a>
         </div>
     </div>
 
@@ -197,13 +243,14 @@
         </div>
     </div>
 
-    
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">        
-        <div class="modal-dialog">            
-            <div class="modal-content  center">                
-                <div class="modal-header" style="border-bottom:0px">                    
+
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content  center">
+                <div class="modal-header" style="border-bottom:0px">
                     <!--<a role=button data-dismiss="modal" aria-hidden="true" class="close ui-btn ui-corner-all ui-shadow ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>-->
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>                    
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>
                 </div>
                 <div class="modal-body" style="padding-bottom:0px">
                     <div class=box>
@@ -222,7 +269,7 @@
                                     <button type="submit" class="btn  btn-warning" style="background-color: rgb(85, 110, 180);border-color: transparent;box-shadow: 2px 2px 2px 0px rgb(51, 71, 125);font-weight: bold;">Log In</button>
                                 </form>
                                 <div style="display:block;text-align:center">
-                                    <label style="margin-top:10px">Or</label>                                    
+                                    <label style="margin-top:10px">Or</label>
                                     <button class="zocial facebook" onclick="fbLogin()">Login with Facebook</button><br />
                                 </div>
                             </div>
@@ -237,7 +284,7 @@
                                 <p>Please enter your e-mail address &amp; we will send you a confirmation mail to reset your password.</p>
                                 <form method=post id="forgotPassword" ng-submit="frgtPassformSubmit()" style="text-align:center">
                                     <input class=form-control type=email placeholder=Email name=email ng-model="frgtPassformData.email">
-                                    <input class="btn  btn-warning" type=submit value="SEND MY DETAILS!" name=commit style="  background-color: rgb(85, 110, 180);border-color: transparent;box-shadow: 2px 2px 2px 0px rgb(51, 71, 125);font-weight: bold;margin-top:10px">                                
+                                    <input class="btn  btn-warning" type=submit value="SEND MY DETAILS!" name=commit style="  background-color: rgb(85, 110, 180);border-color: transparent;box-shadow: 2px 2px 2px 0px rgb(51, 71, 125);font-weight: bold;margin-top:10px">
                                 </form>
                             </div>
                             <div id=message style=display:none>
@@ -248,7 +295,7 @@
                         </div>
                     </div>
                     <div class=box>
-                        <div class="content registerBox" style="display: none;">                            
+                        <div class="content registerBox" style="display: none;">
                             <div class="form">
                                 <form class="push-down-15" id="loginform" method="post" style="text-align:center" ng-submit="loginformSubmit()">
                                     <div class="form-group">
@@ -262,7 +309,7 @@
                                     </div>
                                     <button type="submit" class="btn  btn-warning" style="  background-color: rgb(85, 110, 180);border-color: transparent;box-shadow: 2px 2px 2px 0px rgb(51, 71, 125);font-weight: bold;">Sign Up</button>
                                 </form>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,7 +329,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/jquery.mobile-1.4.2.min.js"></script>
     <script src="js/jquery.swipebox.min.js"></script>
@@ -290,11 +337,11 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/events.js"></script>
-    
+
     <script src="cordova.js"></script>
-    
+
     <script src="cdv-plugin-fb-connect.js"></script>
-    
+
     <script src="facebook-js-sdk.js"></script>
 
     <script>
@@ -305,16 +352,16 @@
 
         if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
             alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-            document.getElementById('loading').style.display = 'none';            
+            document.getElementById('loading').style.display = 'none';
         }
         if (typeof CDV == 'undefined') {
             alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-            document.getElementById('loading').style.display = 'none';            
+            document.getElementById('loading').style.display = 'none';
         }
         if (typeof FB == 'undefined') {
             alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
             document.getElementById('loading').style.display = 'none';
-        }        
+        }
 
         document.addEventListener('deviceready', onDeviceReady, false);
         document.addEventListener("offline", onOffline, false);
@@ -376,7 +423,7 @@
             }, { scope: 'public_profile,email' });
         }
 
-        function getUserInfo() {            
+        function getUserInfo() {
             FB.api('/me', function (response) {
                 $('#FBusername').val(response.first_name);
                 $('#FBusername').text(response.first_name);
@@ -401,11 +448,11 @@
                 $('#loginButton').show();
                 $('#revealPanel').panel("close");
                 $('#Panelloader').hide();
-               
+
             });
         }
 
-        function onOffline() {            
+        function onOffline() {
             alert("You are not connected to the Internet. ");
         }
 
@@ -415,101 +462,102 @@
         //    debugger
         //}
 
-        
-            //$('#loading').hide();
-            var directionsDisplay;
-            var directionsService = new google.maps.DirectionsService();
-            var map;
-            var panoramaOptions = {
-                pano: 'rEQIKH3RXo4AAAGusnEkNQ',
-                pov: {
-                    heading: 360,
-                    pitch: 10
-                }
-            };
-            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
 
-            $(document).on("pageshow", "#StreetView", function () {
-                debugger
-                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
-                panoramaOptions.pano = sessionStorage.panoid;
-                panorama.setPano(sessionStorage.panoid);
-                panorama.setVisible(true);
-            });
-
-            $(document).on("pageshow", "#Directions", function () {
-                if (directionsDisplay != null) {
-                    $('#map-canvas').html('');
-                    directionsDisplay.setMap(null);
-                    directionsDisplay = null;
-                }
-                $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
-
-                var geolocationOptions={ maximumAge: 3000, timeout: 60000, enableHighAccuracy: true };
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, geolocationOptions);
-                } else {                    
-                    alert('Please enable your location service.');
-                }
-            });
-            
-            
-            
-
-            var geolocationSuccess = function (Position) {
-                directionsDisplay = new google.maps.DirectionsRenderer();
-
-                var startPosition = new google.maps.LatLng(Position.coords.latitude, Position.coords.longitude);
-
-                var mapOptions = {
-                    zoom: 7,
-                    center: startPosition
-                };
-
-                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-                directionsDisplay.setMap(map);
-                var request = {
-                    origin: startPosition,
-                    destination: sessionStorage.place,
-                    travelMode: google.maps.TravelMode.DRIVING
-                };
-                directionsService.route(request, function (response, status) {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    } else {
-                        alert('Error getting route');
-                    }
-                });
-            };
-
-            function geolocationError(PositionError) {
-                alert('Please enable your location services ' + JSON.stringify(PositionError));
-                //$.mobile.navigate("#Options");
-                window.history.back();
+        //$('#loading').hide();
+        var directionsDisplay;
+        var directionsService = new google.maps.DirectionsService();
+        var map;
+        var panoramaOptions = {
+            pano: 'rEQIKH3RXo4AAAGusnEkNQ',
+            pov: {
+                heading: 360,
+                pitch: 10
             }
+        };
+        var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+
+        $(document).on("pageshow", "#StreetView", function () {
+            debugger
+            $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
+            panoramaOptions.pano = sessionStorage.panoid;
+            panorama.setPano(sessionStorage.panoid);
+            panorama.setVisible(true);
+        });
+
+        $(document).on("pageshow", "#Directions", function () {
+            if (directionsDisplay != null) {
+                $('#map-canvas').html('');
+                directionsDisplay.setMap(null);
+                directionsDisplay = null;
+            }
+            $(this).find('[data-role="main"]').height($(window).height() - $(this).find('[data-role="footer"]').height());
+
+            var geolocationOptions = { maximumAge: 3000, timeout: 30000, enableHighAccuracy: true };
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, geolocationOptions);
+            } else {
+                alert('Please enable your location service.');
+            }
+        });
 
 
-            $(document).on("swiperight", "#main", function (e) {
-                alert('finger swiped ' + e.type);
-                if ($(".ui-page-active").jqmData("panel") !== "open") {
-                    alert('panel is closed');
-                    if (e.type === "swiperight") {
-                        alert('opening panel');
-                        $("#revealPanel").panel("open");
-                    }
+
+
+        var geolocationSuccess = function (Position) {
+            directionsDisplay = new google.maps.DirectionsRenderer();
+
+            var startPosition = new google.maps.LatLng(Position.coords.latitude, Position.coords.longitude);
+
+            var mapOptions = {
+                zoom: 7,
+                center: startPosition
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            directionsDisplay.setMap(map);
+            var request = {
+                origin: startPosition,
+                destination: sessionStorage.place,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            directionsService.route(request, function (response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    alert('Error getting route');
                 }
             });
+        };
 
-            $("#ReviewPopup").on({
-                popupbeforeposition: function () {
-                    var w = $(window).width() - 100;
-                    $("#ReviewPopup").css("width", w);
+        function geolocationError(PositionError) {
+            alert('Please enable your location services ' + JSON.stringify(PositionError));
+            //$.mobile.navigate("#Options");
+            window.history.back();
+        }
+
+
+        $(document).on("swiperight", "#main", function (e) {
+            alert('finger swiped ' + e.type);
+            if ($(".ui-page-active").jqmData("panel") !== "open") {
+                alert('panel is closed');
+                if (e.type === "swiperight") {
+                    alert('opening panel');
+                    $("#revealPanel").panel("open");
                 }
-            });
+            }
+        });
 
-            $('.swipebox').swipebox();
-       
+        $("#ReviewPopup").on({
+            popupbeforeposition: function () {
+                var w = $(window).width() - 100;
+                $("#ReviewPopup").css("width", w);
+            }
+        });
+
+        $('.swipebox').swipebox();
+
     </script>
 </body>
+
 </html>
