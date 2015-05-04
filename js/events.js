@@ -1,5 +1,6 @@
 ﻿angular.module('TouristApp', [])
 .controller('placesCntrler', ['$scope', '$http', function ($scope, $http) {
+    $scope.imageSRCs = [];
     $scope.places = [
         {
             name: "Lotus Temple",
