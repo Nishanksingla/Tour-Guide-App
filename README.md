@@ -16,3 +16,5 @@ This app also provides following features to the user:
 
 This is just phase 1. 
 There are more features to add in phase 2.
+##Technologies Used
+HTML5, CSS3, Bootstrap, jQuery Mobile, Facebook Javascript SDK, Google Street View API, Google Direction API, Google Geolocation API. 
