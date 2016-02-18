@@ -2,12 +2,12 @@
 Travel buddy is a cross platform mobile app that shows all the tourist attraction places in a city categorized in different categories 
 like Historic, Fun, Monuments, Religious etc. 
 This app provide following options for each place.
-  1. Street view or 360 view of the place.
-  2. Photo Gallery of the place.
-  3. Directions to the place.
-  4. Information/History of the place.
-  5. Some famous facts about the place.
-  6. Option for providing rating and feedback of the place.
+  1. Street view or 360 view.
+  2. Photo Gallery.
+  3. Directions.
+  4. Information/History.
+  5. Some fun facts.
+  6. Option for providing rating and feedback.
 
 This app also provides following features to the user:
   1. Option to like the place
