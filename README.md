@@ -15,6 +15,8 @@ This app also provides following features to the user:
   3. Option to click and add pictures to their travel diary and share them on social media. 
 
 This is just phase 1. 
-There are more features to add in phase 2.
+There are more features coming up in phase 2.
 ##Technologies Used
 HTML5, CSS3, Bootstrap, jQuery Mobile, Facebook Javascript SDK, Google Street View API, Google Direction API, Google Geolocation API. 
+
+### PS: Open to any suggestion and contribution from the community to help me make this app better.
