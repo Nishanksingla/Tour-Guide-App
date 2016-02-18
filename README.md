@@ -1,7 +1,7 @@
 # Travel Buddy - Your Personal Tour Guide
 Travel buddy is a cross platform mobile app that shows all the tourist attraction places in a city categorized in different categories 
 like Historic, Fun, Monuments, Religious etc. 
-This app provide following options for each place.
+This app provide following options for each place.\n
 1.) Street view or 360 view of the place.
 2.) Photo Gallery of the place.
 3.) Directions to the place.
