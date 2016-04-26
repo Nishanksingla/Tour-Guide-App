@@ -8,6 +8,7 @@ This app provide following options for each place.
   4. Information/History.
   5. Some fun facts.
   6. Option for providing rating and feedback.
+  7. Share and Plan a tour with Friends
 
 This app also provides following features to the user:
   1. Option to like the place
